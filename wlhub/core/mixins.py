@@ -2,6 +2,11 @@ from django.urls import reverse as reverse
 from django.utils.html import format_html
 
 
+class ModelStrMixin(object):
+    def __str__(self):
+        return self.name or "..."
+
+
 # based on https://gist.github.com/Vigrond/ac3c468377ce6d3e53f9b7059fd42569
 class ListLinksMixin(object):
     """
