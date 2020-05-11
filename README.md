@@ -25,7 +25,7 @@
 - [ ] **AuthRequiredPages**: >= 1
 - [ ] **Parking Pages**: 404, 500
 
-### Pages
+### Frontend
 - [ ] **Pages**: >= 10
 - [ ] **NavItems**: >= 5
 - [ ] **Components**: Header, Footer
