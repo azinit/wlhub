@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from core.mixins import ModelStrMixin
+
 
 class SiteUser(AbstractUser):
     email = models.EmailField('Email', unique=True)
@@ -10,7 +12,7 @@ class SiteUser(AbstractUser):
     REQUIRED_FIELDS = ['username']
 
 
-class Tag(models.Model):
+class Tag(ModelStrMixin, models.Model):
     class Meta:
         verbose_name = "Тег"
         verbose_name_plural = "Теги"

@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from core.mixins import ModelStrMixin
 from users.models import Tag
 
 
-class Area(models.Model):
+class Area(ModelStrMixin, models.Model):
     """
     Область задач
     :remark В частных случаях - Заказчик, Проект, Компания и т.д.
@@ -20,7 +21,7 @@ class Area(models.Model):
     description = models.TextField("Описание", blank=True, default="")
 
 
-class Subject(models.Model):
+class Subject(ModelStrMixin, models.Model):
     """
     Субъект задачи
     :example Django (ИТИС)
@@ -35,7 +36,7 @@ class Subject(models.Model):
     description = models.TextField("Описание", blank=True, default="")
 
 
-class TaskState(models.Model):
+class TaskState(ModelStrMixin, models.Model):
     """
     Состояние задачи
     :example "В работе", "Провалено", ...
@@ -48,7 +49,7 @@ class TaskState(models.Model):
     name = models.CharField("Название", max_length=16)
 
 
-class TaskPriority(models.Model):
+class TaskPriority(ModelStrMixin, models.Model):
     """
     Приоритет задачи
     :example "Важно (5)"
@@ -62,7 +63,7 @@ class TaskPriority(models.Model):
     value = models.IntegerField("Целочисленное значение приоритета")
 
 
-class ReportStatus(models.Model):
+class ReportStatus(ModelStrMixin, models.Model):
     """
     Статус отчетности
     :example По готовности
@@ -79,7 +80,7 @@ class ReportStatus(models.Model):
     name = models.CharField("Название", max_length=16)
 
 
-class Task(models.Model):
+class Task(ModelStrMixin, models.Model):
     """
     Задача
     :example Семестровка (ИТИС/Django)
