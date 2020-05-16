@@ -15,20 +15,20 @@
     {% endblock %}
 </head>
 <body>
-{% include 'includes/header.html' %}
-
 <div id="root">
+    {% include 'includes/header.html' %}
     {% if error %}
         {% if error == 404 %}
             {#            {% include 'parking_pages/404.html' %}#}
         {% endif %}
     {% else %}
-        {% block content %}
-        {% endblock %}
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
     {% endif %}
+    {% include 'includes/footer.html' %}
 </div>
-
-{% include 'includes/footer.html' %}
 
 <script src="{% static "bootstrap/jquery-3.5.1.slim.min.js" %}"></script>
 <script src="{% static "bootstrap/popper.min.js" %}"></script>
