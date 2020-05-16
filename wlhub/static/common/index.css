@@ -19,3 +19,7 @@ footer {
   height: 60px;
   line-height: 60px;
 }
+
+.object-fit-cover {
+    object-fit: cover;
+}
