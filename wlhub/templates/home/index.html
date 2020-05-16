@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="jumbotron bg-primary text-white rounded-0">
-        Book: {{ book }}
+    <section class="jumbotron rounded-0">
+        {% include 'components/quote.html' with header=book.category body=book.name footer=book.author %}
     </section>
 {% endblock %}
