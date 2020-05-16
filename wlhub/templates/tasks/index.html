@@ -1,0 +1,14 @@
+{% extends 'includes/wrapper.html' %}
+
+{% block title %}
+    <title>Tasks</title>
+{% endblock %}
+
+{% block content %}
+    <section class="jumbotron hero mb-0 text-center">
+        {% include 'tasks/includes/hero.html' %}
+    </section>
+    <section class="tasks">
+        {% include 'tasks/includes/tasks.html' %}
+    </section>
+{% endblock %}
