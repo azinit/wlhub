@@ -1,4 +1,6 @@
 from django.contrib import admin
+
+from core.mixins import ListLinksMixin
 from tasks.models import (
     ReportStatus,
     TaskPriority,
@@ -11,18 +13,19 @@ from tasks.models import (
 
 
 @admin.register(Area)
-class AreaAdmin(admin.ModelAdmin):
+class AreaAdmin(ListLinksMixin, admin.ModelAdmin):
     list_display = ('name', 'description', 'user')
 
 
 @admin.register(Subject)
-class SubjectAdmin(admin.ModelAdmin):
+class SubjectAdmin(ListLinksMixin, admin.ModelAdmin):
     list_display = ('area', 'name', 'description')
 
 
 @admin.register(Task)
-class TaskAdmin(admin.ModelAdmin):
-    list_display = ('name', 'details', 'subject', 'state', 'report_status', 'priority')
+class TaskAdmin(ListLinksMixin, admin.ModelAdmin):
+    fields = ('name', 'subject', 'details', 'start_at', 'end_at', 'state', 'priority', 'report_status')
+    list_display = ('name', 'subject', 'details', 'state', 'report_status', 'priority', 'start_at', 'end_at')
 
 
 admin.site.register(ReportStatus, admin.ModelAdmin)

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -94,9 +96,11 @@ class Task(ModelStrMixin, models.Model):
         verbose_name_plural = "Задачи"
 
     name = models.CharField("Название", max_length=32)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, verbose_name="Субъект задачи", on_delete=models.CASCADE)
     details = models.TextField("Детали задачи", default="")
-    state = models.ForeignKey(TaskState, on_delete=models.SET_NULL, null=True)
-    report_status = models.ForeignKey(ReportStatus, on_delete=models.SET_NULL, null=True)
-    priority = models.ForeignKey(TaskPriority, on_delete=models.SET_NULL, null=True)
+    state = models.ForeignKey(TaskState, verbose_name="Состояние", on_delete=models.SET_NULL, blank=True, null=True, default=1)
+    report_status = models.ForeignKey(ReportStatus, verbose_name="Статус отчетности", on_delete=models.SET_NULL, null=True)
+    priority = models.ForeignKey(TaskPriority, verbose_name="Приоритет", on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag)
+    start_at = models.DateField("Дата создания", blank=True, default=datetime.today())
+    end_at = models.DateField("Дата завершения", blank=True, default=datetime.today() + timedelta(days=7))
