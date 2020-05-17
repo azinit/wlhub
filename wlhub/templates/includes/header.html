@@ -44,8 +44,8 @@
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>{% endcomment %}
-            <button class="btn btn-dark m-1" type="submit">Sign In</button>
-            <button class="btn btn-danger m-1" type="submit">Sign Up</button>
+            <a href="{% url 'account-sign-in' %}" class="btn btn-dark m-1 text-white" type="submit">Sign In</a>
+            <a href="#" class="btn btn-danger m-1 text-white" type="submit">Sign Up</a>
         </div>
     </nav>
 </header>
