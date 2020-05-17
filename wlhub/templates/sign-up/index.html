@@ -16,9 +16,9 @@
         </div>
         <h1 class="h3 mb-3 font-weight-normal text-center">Creating account</h1>
 
-        {% if auth_error %}
-            <div class="alert alert-danger" role="alert">{{ auth_error }}</div>
-        {% endif %}
+        {% for error in auth_errors %}
+            <div class="alert alert-danger" role="alert">{{ error }}</div>
+        {% endfor %}
 
         <input type="email" name="email" class="form-control mb-1" placeholder="Email"
                required autofocus>

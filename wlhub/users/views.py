@@ -11,6 +11,7 @@ def index(request):
 def sign_in(request):
     user = request.user
     context = {}
+    errors = []
     context.update(csrf(request))
 
     if user.is_authenticated:
@@ -23,7 +24,9 @@ def sign_in(request):
         if user is not None:
             login(request, user)
             return redirect('account-index')
-        context["auth_error"] = "Invalid login or password"
+        errors.append("Invalid login or password")
+
+    context["auth_errors"] = errors
     return render(request, 'sign-in/index.html', context)
 
 
@@ -31,6 +34,7 @@ def sign_up(request):
     user = request.user
     context = {}
     context.update(csrf(request))
+    errors = []
 
     if user.is_authenticated:
         return redirect("home-index")
@@ -39,16 +43,31 @@ def sign_up(request):
         email = request.POST['email']
         username = request.POST['username']
         password = request.POST['password']
-        user = get_user_model().objects.create(
-            username=username,
-            email=email,
-            password=password
-        )
-        # hashing
-        user.set_password(password)
-        user.save()
-        return redirect("account-sign-in")
 
+        # FIXME: simplify
+        # validating
+        email_exists = get_user_model().objects.filter(email=email).exists()
+        username_exists = get_user_model().objects.filter(username=username).exists()
+
+        if not email_exists and not username_exists:
+            # creating new user
+            user = get_user_model().objects.create(
+                username=username,
+                email=email,
+                password=password
+            )
+            # hashing
+            user.set_password(password)
+            user.save()
+            return redirect("account-sign-in")
+
+        # process errors
+        if email_exists:
+            errors.append('Such email is already taken')
+        if username_exists:
+            errors.append('Such username is already taken')
+
+    context["auth_errors"] = errors
     return render(request, 'sign-up/index.html', context)
 
 
