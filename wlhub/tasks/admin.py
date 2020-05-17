@@ -8,10 +8,23 @@ from tasks.models import (
     Task,
     Tag
 )
-# Register your models here.
-admin.site.register(Area, admin.ModelAdmin)
-admin.site.register(Subject, admin.ModelAdmin)
-admin.site.register(Task, admin.ModelAdmin)
+
+
+@admin.register(Area)
+class AreaAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'user')
+
+
+@admin.register(Subject)
+class SubjectAdmin(admin.ModelAdmin):
+    list_display = ('area', 'name', 'description')
+
+
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ('name', 'details', 'subject', 'state', 'report_status', 'priority')
+
+
 admin.site.register(ReportStatus, admin.ModelAdmin)
 admin.site.register(TaskPriority, admin.ModelAdmin)
 admin.site.register(TaskState, admin.ModelAdmin)

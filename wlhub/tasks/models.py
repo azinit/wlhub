@@ -35,6 +35,9 @@ class Subject(ModelStrMixin, models.Model):
     name = models.CharField("Название", max_length=32)
     description = models.TextField("Описание", blank=True, default="")
 
+    def __str__(self):
+        return f'{self.area}/{self.name}'
+
 
 class TaskState(ModelStrMixin, models.Model):
     """
