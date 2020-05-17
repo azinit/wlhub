@@ -1,0 +1,23 @@
+.some-not-exist-container {
+    background-color: var(--blue);
+    background-color: var(--cyan);
+    background-color: var(--danger);
+    background-color: var(--dark);
+    background-color: var(--gray);
+    background-color: var(--gray-dark);
+    background-color: var(--green);
+    background-color: var(--indigo);
+    background-color: var(--info);
+    background-color: var(--light);
+    background-color: var(--orange);
+    background-color: var(--pink);
+    background-color: var(--primary);
+    background-color: var(--purple);
+    background-color: var(--red);
+    background-color: var(--secondary);
+    background-color: var(--success);
+    background-color: var(--teal);
+    background-color: var(--warning);
+    background-color: var(--white);
+    background-color: var(--yellow);
+}
