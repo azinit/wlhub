@@ -8,8 +8,8 @@ from core.mixins import ModelStrMixin
 class SiteUser(AbstractUser):
     email = models.EmailField('Email', unique=True)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    # USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS = ['username']
 
 
 class Tag(ModelStrMixin, models.Model):
