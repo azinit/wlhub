@@ -1,4 +1,4 @@
-from django.contrib.auth import logout as _logout, authenticate, login
+from django.contrib.auth import logout as _logout, authenticate, login, get_user_model
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 
@@ -28,7 +28,27 @@ def sign_in(request):
 
 
 def sign_up(request):
+    user = request.user
     context = {}
+    context.update(csrf(request))
+
+    if user.is_authenticated:
+        return redirect("home-index")
+
+    if request.POST:
+        email = request.POST['email']
+        username = request.POST['username']
+        password = request.POST['password']
+        user = get_user_model().objects.create(
+            username=username,
+            email=email,
+            password=password
+        )
+        # hashing
+        user.set_password(password)
+        user.save()
+        return redirect("account-sign-in")
+
     return render(request, 'sign-up/index.html', context)
 
 
