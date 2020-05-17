@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>WLHub - Сервис по распределению нагрузки</title>
+    {% endblock %}
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <link rel="stylesheet" href="{% static "bootstrap/bootstrap.min.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "bootstrap/bootstrap-color.min.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'common/index.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+<div id="root">
+    {% include 'includes/header.html' %}
+    {% if error %}
+        {% if error == 404 %}
+            {#            {% include 'parking_pages/404.html' %}#}
+        {% endif %}
+    {% else %}
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    {% endif %}
+    {% include 'includes/footer.html' %}
+</div>
+
+<script src="{% static "bootstrap/jquery-3.5.1.slim.min.js" %}"></script>
+<script src="{% static "bootstrap/popper.min.js" %}"></script>
+<script src="{% static "bootstrap/bootstrap.min.js" %}"></script>
+<script src="{% static "common/index.js" %}"></script>
+{% block scripts %}
+{% endblock %}
+</body>
+</html>
