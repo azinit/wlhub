@@ -6,14 +6,6 @@
 
 {% block content %}
     <section class="task-details h-100">
-        {% comment %}
-     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    details = models.TextField("Детали задачи", default="")
-    state = models.ForeignKey(TaskState, on_delete=models.SET_NULL, null=True)
-    report_status = models.ForeignKey(ReportStatus, on_delete=models.SET_NULL, null=True)
-    priority = models.ForeignKey(TaskPriority, on_delete=models.SET_NULL, null=True)
-    tags = models.ManyToManyField(Tag)
-    {% endcomment %}
         <div class="container d-flex flex-column h-100">
             <div class="card my-5 flex-grow-1">
                 <div class="card-header">
