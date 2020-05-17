@@ -27,6 +27,11 @@ def sign_in(request):
     return render(request, 'sign-in/index.html', context)
 
 
+def sign_up(request):
+    context = {}
+    return render(request, 'sign-up/index.html', context)
+
+
 def logout(request):
     _logout(request)
     return redirect('home-index')
