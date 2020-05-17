@@ -23,8 +23,7 @@ def sign_in(request):
         if user is not None:
             login(request, user)
             return redirect('account-index')
-        else:
-            context["auth_error"] = "Invalid login or password"
+        context["auth_error"] = "Invalid login or password"
     return render(request, 'sign-in/index.html', context)
 
 
