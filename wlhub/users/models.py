@@ -11,10 +11,6 @@ class SiteUser(AbstractUser):
     # USERNAME_FIELD = 'email'
     # REQUIRED_FIELDS = ['username']
 
-    def save(self, *args, **kwargs):
-        self.set_password(self.password)
-        super(SiteUser, self).save(*args, **kwargs)
-
 
 class Tag(ModelStrMixin, models.Model):
     class Meta:

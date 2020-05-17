@@ -1,0 +1,31 @@
+{% extends 'includes/wrapper.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'auth/index.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Sign Up</title>
+{% endblock %}
+
+{% block content %}
+    <form class="form-auth" method="post" action="{% url 'account-sign-up' %}">
+        <div class="text-center">
+            <img class="mb-4" src="{% static 'favicon.png' %}" alt="" width="72" height="72">
+        </div>
+        <h1 class="h3 mb-3 font-weight-normal text-center">Creating account</h1>
+
+        {% for error in auth_errors %}
+            <div class="alert alert-danger" role="alert">{{ error }}</div>
+        {% endfor %}
+
+        <input type="email" name="email" class="form-control mb-1" placeholder="Email"
+               required autofocus>
+        <input type="text" name="username" class="form-control mb-1" placeholder="Username" required>
+        <input type="password" name="password" class="form-control mb-4" placeholder="Password"
+               required>
+        {% csrf_token %}
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Sign Up</button>
+    </form>
+{% endblock %}

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'sign-in/index.css' %}">
+    <link rel="stylesheet" href="{% static 'auth/index.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -10,27 +10,25 @@
 {% endblock %}
 
 {% block content %}
-    <form class="form-signin" method="post" action="{% url 'account-sign-in' %}">
+    <form class="form-auth" method="post" action="{% url 'account-sign-in' %}">
         <div class="text-center">
             <img class="mb-4" src="{% static 'favicon.png' %}" alt="" width="72" height="72">
         </div>
         <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
 
-        {% if auth_error %}
-            <div class="alert alert-danger" role="alert">{{ auth_error }}</div>
-        {% endif %}
+        {% for error in auth_errors %}
+            <div class="alert alert-danger" role="alert">{{ error }}</div>
+        {% endfor %}
 
-        <label for="inputUsername" class="sr-only">Username</label>
-        {% csrf_token %}
-        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required
+        <input type="text" name="username" class="form-control mb-1" placeholder="Username" required
                autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+        <input type="password" name="password" class="form-control mb-4" placeholder="Password" required>
         {% comment %}<div class="checkbox mb-3">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>{% endcomment %}
-        <button class="btn btn-lg btn-danger btn-block" type="submit">Sign in</button>
+        {% csrf_token %}
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Sign In</button>
     </form>
 {% endblock %}
