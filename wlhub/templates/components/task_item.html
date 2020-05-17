@@ -1,0 +1,16 @@
+<li class="list-group-item">
+    <div class="task-main" style="font-weight: 500">
+        <span class="task-name">{{ task.name }}</span>
+    </div>
+    <div class="task-details dim-3 text-muted" style="font-size: 12px">
+        <span class="task-subject mr-2">
+            {% include 'components/stat.html' with label=task.subject icon="folder" offset="mx-0" %}
+        </span>
+        <span class="task-date">
+            {% include 'components/stat.html' with label=task.start_at|timesince icon="clock" offset="mx-0" %}
+        </span>
+        <span class="task-updated float-right">
+            updated {% firstof task.updated_at|timesince "long" %} ago
+        </span>
+    </div>
+</li>

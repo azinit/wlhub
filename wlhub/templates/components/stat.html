@@ -1,4 +1,4 @@
-<span class="stat mx-2 display-5">
-    <i class="fa fa-{{ icon }} text-danger"></i>
+<span class="stat {{ offset|default:"mx-2" }} {{ size|default:"" }}">
+    <i class="fa fa-{{ icon }} {{ color|default:"" }}"></i>
     <span class="label">{{ label }}</span>
 </span>

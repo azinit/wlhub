@@ -103,4 +103,5 @@ class Task(ModelStrMixin, models.Model):
     priority = models.ForeignKey(TaskPriority, verbose_name="Приоритет", on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag)
     start_at = models.DateField("Дата создания", blank=True, default=datetime.today())
+    updated_at = models.DateTimeField("Дата обновления", auto_now=True)
     end_at = models.DateField("Дата завершения", blank=True, default=datetime.today() + timedelta(days=7))

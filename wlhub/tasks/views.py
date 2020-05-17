@@ -1,11 +1,16 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from core.utils import get_or_none
 from tasks.models import Task
 
 
-def index(request):
-    context = {}
+@login_required
+def task_list(request):
+    user = request.user
+    context = {
+        "tasks": Task.objects.filter(subject__area__user=user)
+    }
     return render(request, 'tasks/index.html', context)
 
 
