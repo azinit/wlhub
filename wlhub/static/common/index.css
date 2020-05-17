@@ -6,6 +6,10 @@ body,
     width: 100%;
 }
 
+body {
+    background-color: var(--light);
+}
+
 #root {
     display: flex;
     flex-direction: column;
@@ -17,8 +21,8 @@ main {
 }
 
 footer {
-  height: 60px;
-  line-height: 60px;
+    height: 60px;
+    line-height: 60px;
 }
 
 .object-fit-cover {
