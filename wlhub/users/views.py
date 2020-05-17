@@ -1,5 +1,6 @@
 from django.contrib.auth import logout as _logout, authenticate, login
 from django.shortcuts import render, redirect
+from django.template.context_processors import csrf
 
 
 def index(request):
@@ -9,6 +10,9 @@ def index(request):
 
 def sign_in(request):
     user = request.user
+    context = {}
+    context.update(csrf(request))
+
     if user.is_authenticated:
         return redirect("home-index")
 
@@ -19,12 +23,8 @@ def sign_in(request):
         if user is not None:
             login(request, user)
             return redirect('account-index')
-            # Redirect to a success page.
-            pass
         else:
-            # Return an 'invalid login' error message.
-            pass
-    context = {}
+            context["auth_error"] = "Invalid login or password"
     return render(request, 'sign-in/index.html', context)
 
 

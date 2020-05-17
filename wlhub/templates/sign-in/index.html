@@ -15,9 +15,15 @@
             <img class="mb-4" src="{% static 'favicon.png' %}" alt="" width="72" height="72">
         </div>
         <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+
+        {% if auth_error %}
+            <div class="alert alert-danger" role="alert">{{ auth_error }}</div>
+        {% endif %}
+
         <label for="inputUsername" class="sr-only">Username</label>
         {% csrf_token %}
-        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus>
+        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required
+               autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
         {% comment %}<div class="checkbox mb-3">
