@@ -7,20 +7,22 @@
 {% block content %}
     <section class="tasks-list">
         <div class="container">
-            <div class="tasks__header mt-4">
-                <h1>Tasks</h1>
-            </div>
-            <ul class="nav nav-tabs mb-2">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Open</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Closed</a>
-                </li>
-            </ul>
-            {% include 'tasks/includes/toolbar.html' %}
-            <div class="mt-1">
-                {% include 'tasks/includes/open_tasks.html' %}
+            <div class="card p-4 mt-4">
+                <div class="tasks__header">
+                    <h1>Tasks</h1>
+                </div>
+                <ul class="nav nav-tabs mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Open</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Closed</a>
+                    </li>
+                </ul>
+                {% include 'tasks/includes/toolbar.html' %}
+                <div class="mt-1">
+                    {% include 'tasks/includes/open_tasks.html' %}
+                </div>
             </div>
         </div>
     </section>
