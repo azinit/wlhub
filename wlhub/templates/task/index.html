@@ -1,0 +1,41 @@
+{% extends 'includes/wrapper.html' %}
+
+{% block title %}
+    <title>Task №{{ task.id }}</title>
+{% endblock %}
+
+{% block content %}
+    <section class="task-details h-100">
+        {% comment %}
+     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    details = models.TextField("Детали задачи", default="")
+    state = models.ForeignKey(TaskState, on_delete=models.SET_NULL, null=True)
+    report_status = models.ForeignKey(ReportStatus, on_delete=models.SET_NULL, null=True)
+    priority = models.ForeignKey(TaskPriority, on_delete=models.SET_NULL, null=True)
+    tags = models.ManyToManyField(Tag)
+    {% endcomment %}
+        <div class="container d-flex flex-column h-100">
+            <div class="card my-5 flex-grow-1">
+                <div class="card-header">
+                    {{ task.subject.area }} / {{ task.subject }}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ task.name }}</h5>
+                    <p class="card-text">{{ task.details }}</p>
+                    <div class="priorities">
+                        <div>Priority: {{ task.priority }}</div>
+                        <div>Report: {{ task.report_status }}</div>
+                        <div>State: {{ task.state }}</div>
+                    </div>
+                    <div class="tags-list">
+                        <span class="tags-title">Tags:&nbsp;</span>
+                        {% for tag in task.tags.all %}
+                            <span class="badge badge-secondary p-1">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
