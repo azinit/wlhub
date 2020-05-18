@@ -29,6 +29,10 @@ footer {
     object-fit: cover;
 }
 
+.h-100-pr {
+    height: 100%;
+}
+
 .display-5 {
     font-size: 1.5rem;
     font-weight: 300;
