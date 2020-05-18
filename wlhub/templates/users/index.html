@@ -1,5 +1,18 @@
 {% extends 'includes/wrapper.html' %}
 
+{% block styles %}
+    <style>
+        .stat {
+            color: var(--gray);
+            transition: .2s;
+            user-select: none;
+        }
+        .stat:hover {
+            color: var(--danger);
+            cursor: default;
+        }
+    </style>
+{% endblock %}
 {% block title %}
     <title>Profile</title>
 {% endblock %}
