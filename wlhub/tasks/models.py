@@ -121,7 +121,7 @@ class Task(ModelStrMixin, models.Model):
 
     @classmethod
     def open(cls) -> QuerySet:
-        return Task.objects.filter(state__code__in=["IN", "WI", "NE"])
+        return Task.objects.filter(state__code__in=["IN", "WI", "NW"])
 
     @classmethod
     def closed(cls) -> QuerySet:
