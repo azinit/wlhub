@@ -50,3 +50,12 @@ footer {
 .dim-5 {
     opacity: 0.25;
 }
+
+.text-link {
+    text-decoration: none;
+    color: unset;
+}
+.text-link:hover {
+    color: unset;
+    text-decoration: none;
+}

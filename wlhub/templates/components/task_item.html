@@ -1,9 +1,6 @@
 <li class="task-item list-group-item {{ task.state.code|lower }}">
-{% with IN_PROCESS=task.state.code %}
-
-{% endwith %}
     <div class="task-main" style="font-weight: 500">
-        <span class="task-name">{{ task.label }}</span>
+        <a class="task-name text-link" href="{% url 'tasks-details' pk=task.pk %}">{{ task.label }}</a>
     </div>
     <div class="task-details dim-3 text-muted" style="font-size: 12px">
         <span class="task-subject mr-2">
