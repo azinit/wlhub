@@ -1,9 +1,10 @@
-<h1 class="display-4">admin</h1>
-<p class="lead">admin@gmail.com</p>
+<h1 class="display-4">{{ user.username }}</h1>
+<p class="lead">{{ user.email }}</p>
 <hr class="my-4">
 <div class="stats">
-    {% include 'components/stat.html' with label=2 icon="folder" %}
-    {% include 'components/stat.html' with label=13 icon="window-restore" %}
-    {% include 'components/stat.html' with label=4 icon="check" %}
-    {% include 'components/stat.html' with label="80%" icon="fire" %}
+    {% include 'components/stat.html' with size="display-5" title="Areas" label=user.areas.count icon="folder" %}
+    {% include 'components/stat.html' with size="display-5" title="Subjects" label=user.subjects.count icon="bars" %}
+    {% include 'components/stat.html' with size="display-5" title="Total tasks" label=user.tasks.count icon="clone" %}
+    {% include 'components/stat.html' with size="display-5" title="Closed tasks" label=user.closed_tasks.count icon="check" %}
+    {% include 'components/stat.html' with size="display-5" title="Workload" label=user.workload icon="fire" %}
 </div>

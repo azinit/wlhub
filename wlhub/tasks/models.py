@@ -1,5 +1,8 @@
+from datetime import datetime, timedelta
+
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import QuerySet
 
 from core.mixins import ModelStrMixin
 from users.models import Tag
@@ -35,6 +38,9 @@ class Subject(ModelStrMixin, models.Model):
     name = models.CharField("Название", max_length=32)
     description = models.TextField("Описание", blank=True, default="")
 
+    def __str__(self):
+        return f'{self.area}/{self.name}'
+
 
 class TaskState(ModelStrMixin, models.Model):
     """
@@ -47,6 +53,10 @@ class TaskState(ModelStrMixin, models.Model):
         verbose_name_plural = "Состояния задачи"
 
     name = models.CharField("Название", max_length=16)
+    code = models.CharField("Кодовое обозначение", max_length=2)
+
+    def __str__(self):
+        return self.name
 
 
 class TaskPriority(ModelStrMixin, models.Model):
@@ -91,9 +101,28 @@ class Task(ModelStrMixin, models.Model):
         verbose_name_plural = "Задачи"
 
     name = models.CharField("Название", max_length=32)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, verbose_name="Субъект задачи", on_delete=models.CASCADE)
     details = models.TextField("Детали задачи", default="")
-    state = models.ForeignKey(TaskState, on_delete=models.SET_NULL, null=True)
-    report_status = models.ForeignKey(ReportStatus, on_delete=models.SET_NULL, null=True)
-    priority = models.ForeignKey(TaskPriority, on_delete=models.SET_NULL, null=True)
+    state = models.ForeignKey(TaskState, verbose_name="Состояние", on_delete=models.SET_NULL, blank=True, null=True, default=1)
+    report_status = models.ForeignKey(ReportStatus, verbose_name="Статус отчетности", on_delete=models.SET_NULL, null=True)
+    priority = models.ForeignKey(TaskPriority, verbose_name="Приоритет", on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag)
+    start_at = models.DateField("Дата создания", blank=True, default=datetime.today())
+    updated_at = models.DateTimeField("Дата обновления", auto_now=True)
+    end_at = models.DateField("Дата завершения", blank=True, default=datetime.today() + timedelta(days=7))
+
+    @property
+    def is_wip(self):
+        return self.state.code == "WI"
+
+    @property
+    def label(self):
+        return f'{"WIP: " if self.is_wip else ""}{self.name}'
+
+    @classmethod
+    def open(cls) -> QuerySet:
+        return Task.objects.filter(state__code__in=["IN", "WI", "NW"])
+
+    @classmethod
+    def closed(cls) -> QuerySet:
+        return Task.objects.filter(state__code__in=["FL", "DN"])
