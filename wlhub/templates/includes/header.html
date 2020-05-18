@@ -15,12 +15,14 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-danger" href="{% url 'tasks-list' category="open" %}">Tasks</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-secondary" href="{% url 'tasks-details' pk=1 %}">[Task Example]</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{% url 'tasks-list' category="open" %}">Tasks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{% url 'tasks-details' pk=1 %}">[Task Example]</a>
+                    </li>
+                {% endif %}
                 {% comment %}<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -33,6 +35,9 @@
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </li>{% endcomment %}
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Get Started</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Docs</a>
                 </li>
