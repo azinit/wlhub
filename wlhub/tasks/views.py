@@ -12,7 +12,7 @@ def task_list(request, category: str):
     tasks = []
     if category == 'open':
         tasks = Task.open().filter(subject__area__user=user)
-    if category == 'close':
+    if category == 'closed':
         tasks = Task.closed().filter(subject__area__user=user)
 
     context = {
