@@ -19,7 +19,7 @@
                     <a class="nav-link" href="{% url 'account-index' %}">User</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="{% url 'tasks-list' %}">Tasks</a>
+                    <a class="nav-link text-danger" href="{% url 'tasks-list' category="open" %}">Tasks</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-secondary" href="{% url 'tasks-details' pk=1 %}">[Task Example]</a>

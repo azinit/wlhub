@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import QuerySet
 
 from core.mixins import ModelStrMixin
 from users.models import Tag
@@ -117,3 +118,11 @@ class Task(ModelStrMixin, models.Model):
     @property
     def label(self):
         return f'{"WIP: " if self.is_wip else ""}{self.name}'
+
+    @classmethod
+    def open(cls) -> QuerySet:
+        return Task.objects.filter(state__code__in=["IN", "WI", "NE"])
+
+    @classmethod
+    def closed(cls) -> QuerySet:
+        return Task.objects.filter(state__code__in=["FL", "DN"])

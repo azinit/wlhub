@@ -13,10 +13,14 @@
                 </div>
                 <ul class="nav nav-tabs mb-2">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Open</a>
+                        <a class="nav-link text-secondary {% if category == "open" %}active text-danger{% endif %}"
+                           href="{% url 'tasks-list' category="open" %}">
+                            Open
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Closed</a>
+                        <a class="nav-link text-secondary {% if category == "close" %}active text-danger{% endif %}"
+                           href="{% url 'tasks-list' category="close" %}">Closed</a>
                     </li>
                 </ul>
                 {% include 'tasks/includes/toolbar.html' %}

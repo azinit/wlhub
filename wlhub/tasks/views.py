@@ -6,10 +6,18 @@ from tasks.models import Task
 
 
 @login_required
-def task_list(request):
+def task_list(request, category: str):
     user = request.user
+
+    tasks = []
+    if category == 'open':
+        tasks = Task.open().filter(subject__area__user=user)
+    if category == 'close':
+        tasks = Task.closed().filter(subject__area__user=user)
+
     context = {
-        "tasks": Task.objects.filter(subject__area__user=user)
+        "tasks": tasks,
+        "category": category
     }
     return render(request, 'tasks/index.html', context)
 
