@@ -52,6 +52,10 @@ class TaskState(ModelStrMixin, models.Model):
         verbose_name_plural = "Состояния задачи"
 
     name = models.CharField("Название", max_length=16)
+    code = models.CharField("Кодовое обозначение", max_length=2)
+
+    def __str__(self):
+        return self.name
 
 
 class TaskPriority(ModelStrMixin, models.Model):
@@ -105,3 +109,11 @@ class Task(ModelStrMixin, models.Model):
     start_at = models.DateField("Дата создания", blank=True, default=datetime.today())
     updated_at = models.DateTimeField("Дата обновления", auto_now=True)
     end_at = models.DateField("Дата завершения", blank=True, default=datetime.today() + timedelta(days=7))
+
+    @property
+    def is_wip(self):
+        return self.state.code == "WI"
+
+    @property
+    def label(self):
+        return f'{"WIP: " if self.is_wip else ""}{self.name}'
