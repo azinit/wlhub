@@ -21,7 +21,7 @@ def task_list(request, category: str):
     }
     return render(request, 'tasks/index.html', context)
 
-
+@login_required
 def task_details(request, pk: int):
     task = get_or_none(Task, pk=pk)
     context = {

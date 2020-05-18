@@ -16,9 +16,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account-index' %}">User</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-danger" href="{% url 'tasks-list' category="open" %}">Tasks</a>
                 </li>
                 <li class="nav-item">
@@ -48,7 +45,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>{% endcomment %}
             {% if user.is_authenticated %}
-                <span class="text-muted mr-2">({{ user.username }})</span>
+                <a href="{% url 'account-index' %}" class="text-muted mr-2">({{ user.username }})</a>
                 <a href="{% url 'account-logout' %}" class="btn btn-dark m-1 text-white" type="submit">Logout</a>
             {% else %}
                 <a href="{% url 'account-sign-in' %}" class="btn btn-dark m-1 text-white" type="submit">Sign In</a>
