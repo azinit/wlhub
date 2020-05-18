@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card mt-5">
         <div class="card-header">
-            Active tasks
+            <a href="{% url 'tasks-list' category="open" %}" class="text-decoration-none text-danger">Active tasks</a>
         </div>
         <ul class="list-group list-group-flush">
             {% for task in user.open_tasks %}
