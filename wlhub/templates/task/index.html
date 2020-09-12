@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block title %}
-    <title>Task №{{ task.id }}</title>
+    <title>Задача №{{ task.id }}</title>
 {% endblock %}
 
 {% block content %}
@@ -26,13 +26,13 @@
                         <span class="badge badge-success p-2">{{ task.state }}</span>
                     </div>
                     <div class="card-header__end">
-                        <a class="btn btn-outline-dark btn-create-task py-1" title="Create task" href="{% url "tasks-details--create" %}">
+                        <a class="btn btn-outline-dark btn-create-task py-1" title="Создать задачи" href="{% url "tasks-details--create" %}">
                             <i class="fa fa-plus fa-sm"></i>
                         </a>
-                        <a class="btn btn-outline-dark py-1" title="Edit task" href="{% url "tasks-details--edit" pk=task.pk %}">
+                        <a class="btn btn-outline-dark py-1" title="Редактировать задачи" href="{% url "tasks-details--edit" pk=task.pk %}">
                             <i class="far fa-edit fa-sm"></i>
                         </a>
-                        <button class="btn btn-outline-danger btn-delete-task py-1" title="Delete task">
+                        <button class="btn btn-outline-danger btn-delete-task py-1" title="Удалить задачу">
                             <i class="fa fa-trash fa-sm"></i>
                         </button>
                     </div>
