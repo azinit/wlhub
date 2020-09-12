@@ -12,18 +12,25 @@
                     <h1 class="mb-0">Tasks</h1>
                 </div>
                 <hr/>
-                <ul class="nav nav-tabs mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link text-secondary {% if category == "open" %}active text-danger{% endif %}"
-                           href="{% url 'tasks-list' %}?category=open">
-                            Open
+                <div class="tasks__toolbar d-flex align-items-center">
+                    <ul class="nav nav-tabs mb-2 flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary {% if category == "open" %}active text-danger{% endif %}"
+                               href="{% url 'tasks-list' %}?category=open">
+                                Открытые
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary {% if category == "closed" %}active text-danger{% endif %}"
+                               href="{% url 'tasks-list' %}?category=closed">Закрытые</a>
+                        </li>
+                    </ul>
+                    <div class="tasks__buttons ml-2">
+                        <a class="create-issue btn btn-outline-danger" title="Создать новую задачу" href="{% url "tasks-details--create" %}">
+                            <i class="fa fa-plus"></i>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-secondary {% if category == "closed" %}active text-danger{% endif %}"
-                           href="{% url 'tasks-list' %}?category=closed">Closed</a>
-                    </li>
-                </ul>
+                    </div>
+                </div>
                 {% include 'tasks/includes/toolbar.html' %}
                 <div class="mt-1">
                     {% include 'tasks/includes/tasks.html' %}

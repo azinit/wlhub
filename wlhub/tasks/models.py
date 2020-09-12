@@ -27,7 +27,7 @@ class TaskState(ModelStrMixin, models.Model):
         return self.name
 
 
-class TaskPriority(ModelStrMixin, models.Model):
+class TaskPriority(models.Model):
     """
     Приоритет задачи
     :example "Важно (5)"
@@ -39,6 +39,9 @@ class TaskPriority(ModelStrMixin, models.Model):
 
     name = models.CharField("Название", max_length=20)
     value = models.IntegerField("Целочисленное значение приоритета")
+
+    def __str__(self):
+        return f'({self.value}) {self.name}'
 
 
 class Task(ModelStrMixin, models.Model):

@@ -8,9 +8,9 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = (
             "name",
-            "subject",
-            "details",
             "state",
+            "details",
+            "subject",
             "report_status",
             "priority",
             # TODO: "tags",

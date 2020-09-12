@@ -9,7 +9,7 @@
 }
 
 .task-details__form #div_id_name,
-.task-details__form #div_id_subject,
+.task-details__form #div_id_state,
 .task-details__form #div_id_details,
 .task-details__btn {
     flex-basis: 100% !important;

@@ -45,4 +45,4 @@ class Subject(ModelStrMixin, models.Model):
     description = models.TextField("Описание", blank=True, default="")
 
     def __str__(self):
-        return f'{self.area}/{self.name}'
+        return f'{self.area} | {self.name}'
