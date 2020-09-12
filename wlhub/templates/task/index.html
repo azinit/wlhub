@@ -70,21 +70,20 @@
                         <i class="fa fa-comment-alt mr-2"></i>
                         <h6 class="m-0">Комментарии: {{ task.comments.all|length }}</h6>
                     </div>
-                    <div class="comments d-flex mt-4">
-                        <form class="task-details__comment-form flex-grow-2" action="{% url "comment--create" pk=task.pk %}"
-                              method="post">
-                            {% csrf_token %}
-                            {{ form_comment | crispy }}
-                            <button type="submit" class="task-details__btn btn btn-dark w-100">Отправить</button>
-                        </form>
-                        <div class="task-details__comments-list flex-grow-1">
+                    <div class="comments mt-4 w-75">
+                        <div class="task-details__comments-list">
                             {% for comment in task.comments.all %}
                                 {% include "components/comment.html" with comment=comment %}
                             {% empty %}
                                 <span>Комментарии отсутствуют</span>
                             {% endfor %}
-
                         </div>
+                        <form class="task-details__comment-form" action="{% url "comment--create" pk=task.pk %}"
+                              method="post">
+                            {% csrf_token %}
+                            {{ form_comment | crispy }}
+                            <button type="submit" class="task-details__btn btn btn-dark w-100">Отправить</button>
+                        </form>
                     </div>
                 </div>
             </div>
