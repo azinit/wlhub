@@ -16,7 +16,7 @@
                     {% for error in errors %}
                         {% include "components/error.html" with error=error %}
                     {% endfor %}
-                    <form action="{% url "tasks-details--create" %}" method="post">
+                    <form action="{% url "tasks-details--edit" pk=task.pk %}" method="post">
                         {% csrf_token %}
                         {{ form | crispy }}
                         <button type="submit" class="btn btn-dark w-100">Создать</button>

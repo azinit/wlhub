@@ -29,9 +29,9 @@
                         <a class="btn btn-outline-dark btn-create-task py-1" title="Create task" href="{% url "tasks-details--create" %}">
                             <i class="fa fa-plus fa-sm"></i>
                         </a>
-                        <button class="btn btn-outline-dark py-1" title="Edit task">
+                        <a class="btn btn-outline-dark py-1" title="Edit task" href="{% url "tasks-details--edit" pk=task.pk %}">
                             <i class="far fa-edit fa-sm"></i>
-                        </button>
+                        </a>
                         <button class="btn btn-outline-danger btn-delete-task py-1" title="Delete task">
                             <i class="fa fa-trash fa-sm"></i>
                         </button>
