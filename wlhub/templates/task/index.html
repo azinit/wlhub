@@ -1,4 +1,5 @@
 {% extends 'includes/wrapper.html' %}
+{% load crispy_forms_tags %}
 
 {% block scripts %}
     <script type="text/javascript">
@@ -6,7 +7,7 @@
             $(".btn-delete-task").on("click", () => {
                 const msg = "Вы действительно хотите удалить задачу? Отменить действие будет нельзя!";
                 if (confirm(msg)) {
-                     location.href = "{% url "tasks-details--delete" pk=task.pk %}";
+                    location.href = "{% url "tasks-details--delete" pk=task.pk %}";
                 }
             })
         };
@@ -26,10 +27,12 @@
                         <span class="badge text-light p-2" style="{{ task.state.style }}">{{ task.state }}</span>
                     </div>
                     <div class="card-header__end">
-                        <a class="btn btn-outline-dark btn-create-task py-1" title="Создать задачи" href="{% url "tasks-details--create" %}">
+                        <a class="btn btn-outline-dark btn-create-task py-1" title="Создать задачи"
+                           href="{% url "tasks-details--create" %}">
                             <i class="fa fa-plus fa-sm"></i>
                         </a>
-                        <a class="btn btn-outline-dark py-1" title="Редактировать задачи" href="{% url "tasks-details--edit" pk=task.pk %}">
+                        <a class="btn btn-outline-dark py-1" title="Редактировать задачи"
+                           href="{% url "tasks-details--edit" pk=task.pk %}">
                             <i class="far fa-edit fa-sm"></i>
                         </a>
                         <button class="btn btn-outline-danger btn-delete-task py-1" title="Удалить задачу">
@@ -59,6 +62,28 @@
                                     <span class="text-muted">Нет данных</span>
                                 {% endfor %}
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-footer__title d-flex align-items-center">
+                        <i class="fa fa-comment-alt mr-2"></i>
+                        <h6 class="m-0">Комментарии: {{ task.comments.all|length }}</h6>
+                    </div>
+                    <div class="comments d-flex mt-4">
+                        <form class="task-details__comment-form flex-grow-2" action="{% url "comment--create" pk=task.pk %}"
+                              method="post">
+                            {% csrf_token %}
+                            {{ form_comment | crispy }}
+                            <button type="submit" class="task-details__btn btn btn-dark w-100">Отправить</button>
+                        </form>
+                        <div class="task-details__comments-list flex-grow-1">
+                            {% for comment in task.comments.all %}
+                                {% include "components/comment.html" with comment=comment %}
+                            {% empty %}
+                                <span>Комментарии отсутствуют</span>
+                            {% endfor %}
+
                         </div>
                     </div>
                 </div>

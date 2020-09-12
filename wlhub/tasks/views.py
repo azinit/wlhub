@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from core.utils import get_or_none
 from tasks.forms import TaskForm
 from tasks.models import Task
+from comments.forms import CommentForm
+from comments.models import Comment
 
 
 @login_required
@@ -28,8 +30,10 @@ def task_list(request):
 def task_details(request, pk: int):
     task = get_or_none(Task, pk=pk)
     context = {
-        "task": task
+        "task": task,
+        "form_comment": CommentForm()
     }
+
     return render(request, 'task/index.html', context)
 
 

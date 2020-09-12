@@ -52,7 +52,7 @@ class TaskPriority(models.Model):
         return f'({self.value}) {self.name}'
 
 
-class Task(ModelStrMixin, models.Model):
+class Task(models.Model):
     """
     Задача
     :example Семестровка (ИТИС/Django)
@@ -74,6 +74,9 @@ class Task(ModelStrMixin, models.Model):
     start_at = models.DateField("Дата создания", blank=True)
     updated_at = models.DateTimeField("Дата обновления", auto_now=True)
     end_at = models.DateField("Дата завершения", blank=True)
+
+    def __str__(self):
+        return f'#{self.pk}: {self.name}'
 
     def save(self, *args, **kwargs):
         self.start_at = self.start_at or datetime.today()
