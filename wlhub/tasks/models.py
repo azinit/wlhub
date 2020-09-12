@@ -79,6 +79,7 @@ class Task(models.Model):
     subject = models.ForeignKey(Subject, verbose_name="Субъект задачи", on_delete=models.CASCADE)
     details = models.TextField("Детали задачи", default="")
     activity = models.ForeignKey(TaskActivity, verbose_name="Активность", on_delete=models.DO_NOTHING, default=1)
+    link = models.URLField("Ссылка на основной ресурс к задаче", blank=True, null=True)
     state = models.ForeignKey(TaskState, verbose_name="Состояние", on_delete=models.SET_NULL, blank=True, null=True,
                               default=1)
     report_status = models.ForeignKey(ReportStatus, verbose_name="Статус отчетности", on_delete=models.SET_NULL,

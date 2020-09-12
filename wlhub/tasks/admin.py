@@ -6,7 +6,7 @@ from tasks.models import *
 
 @admin.register(Task)
 class TaskAdmin(ListLinksMixin, admin.ModelAdmin):
-    fields = ('name', 'subject', 'details', 'start_at', 'end_at', 'state', 'priority', 'report_status', "activity")
+    fields = ('name', 'subject', 'details', 'start_at', 'end_at', 'state', 'priority', 'report_status', "activity", "link")
     list_display = (
         'name', 'subject', 'details', 'state', 'report_status', 'priority', 'start_at', 'end_at', "updated_at", "activity")
 
