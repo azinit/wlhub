@@ -1,0 +1,41 @@
+{% extends 'includes/wrapper.html' %}
+{% load crispy_forms_tags %}
+
+{% comment %}{% block scripts %}
+    <script type="text/javascript">
+        window.onload = () => {
+            $(".btn-delete-task").on("click", () => {
+                const msg = "Вы действительно хотите удалить задачу? Отменить действие будет нельзя!";
+                if (confirm(msg)) {
+                    location.href = "{% url "tasks-details--delete" pk=task.pk %}";
+                }
+            })
+        };
+    </script>
+{% endblock %}{% endcomment %}
+
+{% block title %}
+    <title>Task №{{ task.id }}</title>
+{% endblock %}
+
+{% block content %}
+    <section class="task-details h-100">
+        <div class="container d-flex flex-column h-100">
+            <div class="card my-5 flex-grow-1">
+                <div class="card-header">
+                    <h3>Создание задачи</h3>
+                </div>
+                <div class="card-body">
+                    {% for error in errors %}
+                        {% include "components/error.html" with error=error %}
+                    {% endfor %}
+                    <form action="{% url "tasks-details--create" %}" method="post">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        <button type="submit" class="btn btn-dark w-100">Создать</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

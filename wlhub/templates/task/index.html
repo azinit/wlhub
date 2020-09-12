@@ -26,10 +26,13 @@
                         <span class="badge badge-success p-2">{{ task.state }}</span>
                     </div>
                     <div class="card-header__end">
-                        <button class="btn btn-dark py-1" title="Edit task">
+                        <a class="btn btn-outline-dark btn-create-task py-1" title="Create task" href="{% url "tasks-details--create" %}">
+                            <i class="fa fa-plus fa-sm"></i>
+                        </a>
+                        <button class="btn btn-outline-dark py-1" title="Edit task">
                             <i class="far fa-edit fa-sm"></i>
                         </button>
-                        <button class="btn btn-danger btn-delete-task py-1" title="Delete task">
+                        <button class="btn btn-outline-danger btn-delete-task py-1" title="Delete task">
                             <i class="fa fa-trash fa-sm"></i>
                         </button>
                     </div>

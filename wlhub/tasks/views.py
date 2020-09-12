@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from core.utils import get_or_none
+from tasks.forms import TaskForm
 from tasks.models import Task
 
 
@@ -38,3 +39,17 @@ def task_delete(request, pk: int):
 
     task.delete()
     return redirect("tasks-list")
+
+@login_required
+def task_create(request):
+    context = {}
+    context["form"] = TaskForm()
+
+    if request.POST:
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task: Task = form.save(commit=False)
+            task.author = request.user
+            task.save()
+            return redirect("tasks-details", pk=task.pk)
+    return render(request, "task/create.html", context=context)
