@@ -63,3 +63,23 @@ footer {
     color: unset;
     text-decoration: none;
 }
+
+.flex-grow-2 {
+    flex-grow: 2 !important;
+}
+
+.flex-grow-3 {
+    flex-grow: 3 !important;
+}
+
+.muted {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+.muted:hover {
+    opacity: 1.0;
+}
+
+.white-space-preline {
+    white-space: pre-line;
+}

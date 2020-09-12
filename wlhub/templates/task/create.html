@@ -1,0 +1,33 @@
+{% extends 'includes/wrapper.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "/tasks/index.css" %}">
+{% endblock %}
+
+{% block title %}
+    <title>Task №{{ task.id }}</title>
+{% endblock %}
+
+{% block content %}
+    <section class="task-details task-details--create h-100">
+        <div class="container d-flex flex-column h-100">
+            <div class="card my-5 flex-grow-1">
+                <div class="card-header">
+                    <h3>Создание задачи</h3>
+                </div>
+                <div class="card-body">
+                    {% for error in errors %}
+                        {% include "components/error.html" with error=error %}
+                    {% endfor %}
+                    <form class="task-details__form" action="{% url "tasks-details--create" %}" method="post">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        <button type="submit" class="task-details__btn btn btn-dark w-100">Создать</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
