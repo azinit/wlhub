@@ -52,6 +52,19 @@ class TaskPriority(models.Model):
         return f'({self.value}) {self.name}'
 
 
+class TaskActivity(ModelStrMixin, models.Model):
+    """
+    Активность по задаче
+    :example Разработка (DEV)
+    """
+
+    class Meta:
+        verbose_name = "Тип активности по задаче"
+        verbose_name_plural = "Типы активностей по задачам"
+
+    name = models.CharField("Название", max_length=24)
+
+
 class Task(models.Model):
     """
     Задача
@@ -65,11 +78,12 @@ class Task(models.Model):
     name = models.CharField("Название", max_length=32)
     subject = models.ForeignKey(Subject, verbose_name="Субъект задачи", on_delete=models.CASCADE)
     details = models.TextField("Детали задачи", default="")
+    activity = models.ForeignKey(TaskActivity, verbose_name="Активность", on_delete=models.DO_NOTHING, default=1)
     state = models.ForeignKey(TaskState, verbose_name="Состояние", on_delete=models.SET_NULL, blank=True, null=True,
                               default=1)
     report_status = models.ForeignKey(ReportStatus, verbose_name="Статус отчетности", on_delete=models.SET_NULL,
-                                      null=True)
-    priority = models.ForeignKey(TaskPriority, verbose_name="Приоритет", on_delete=models.SET_NULL, null=True)
+                                      null=True, default=1)
+    priority = models.ForeignKey(TaskPriority, verbose_name="Приоритет", on_delete=models.SET_NULL, null=True, default=4)
     tags = models.ManyToManyField(Tag)
     start_at = models.DateField("Дата создания", blank=True)
     updated_at = models.DateTimeField("Дата обновления", auto_now=True)

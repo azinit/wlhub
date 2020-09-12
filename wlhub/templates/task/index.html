@@ -48,9 +48,10 @@
                     <div class="card-col flex-grow-1 bg-light p-4">
                         <div class="task-details__properties">
                             {% include "components/field.html" with label="Область" value=task.subject title="Область и контекст задачи" %}
-                            {% include "components/field.html" with label="Приоритет" value=task.priority %}
-                            {% include "components/field.html" with label="Отчетность" value=task.report_status title="Тип отчетности по задаче" %}
                             {% include "components/field.html" with label="Состояние" value=task.state %}
+                            {% include "components/field.html" with label="Приоритет" value=task.priority %}
+                            {% include "components/field.html" with label="Активность" value=task.activity %}
+                            {% include "components/field.html" with label="Отчетность" value=task.report_status title="Тип отчетности по задаче" %}
                         </div>
                         <div class="tags-list">
                             {# FIXME: more customizable include (pass template in include) #}

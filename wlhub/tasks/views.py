@@ -59,6 +59,7 @@ def task_create(request):
             task.author = request.user
             task.save()
             return redirect("tasks-details", pk=task.pk)
+    context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
     return render(request, "task/create.html", context=context)
 
 
@@ -78,4 +79,5 @@ def task_edit(request, pk: int):
             next_task: Task = form.save(commit=False)
             next_task.save()
             return redirect("tasks-details", pk=task.pk)
+    context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
     return render(request, "task/edit.html", context=context)

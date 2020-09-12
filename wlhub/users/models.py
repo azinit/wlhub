@@ -35,5 +35,4 @@ class SiteUser(AbstractUser):
 
     @property
     def workload(self):
-        # TODO: impl
-        return '80%'
+        return f'{len(self.open_tasks) / len(self.tasks) * 100}%'
