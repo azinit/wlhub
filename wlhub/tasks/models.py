@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from colorfield.fields import ColorField
 from django.db import models
 from django.db.models import QuerySet
 
@@ -20,11 +21,18 @@ class TaskState(ModelStrMixin, models.Model):
 
     name = models.CharField("Название", max_length=20)
     code = models.CharField("Кодовое обозначение", max_length=2)
-
-    # TODO: add color (secondary, primary, ...)
+    color = models.CharField("Цвет", max_length=6)
 
     def __str__(self):
         return self.name
+
+    @property
+    def style(self):
+        return f'background-color: #{self.color}'
+
+    @property
+    def style_transparent(self):
+        return f'background-color: #{self.color}67 !important'
 
 
 class TaskPriority(models.Model):
@@ -63,9 +71,14 @@ class Task(ModelStrMixin, models.Model):
                                       null=True)
     priority = models.ForeignKey(TaskPriority, verbose_name="Приоритет", on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag)
-    start_at = models.DateField("Дата создания", blank=True, default=datetime.today())
+    start_at = models.DateField("Дата создания", blank=True)
     updated_at = models.DateTimeField("Дата обновления", auto_now=True)
-    end_at = models.DateField("Дата завершения", blank=True, default=datetime.today() + timedelta(days=7))
+    end_at = models.DateField("Дата завершения", blank=True)
+
+    def save(self, *args, **kwargs):
+        self.start_at = self.start_at or datetime.today()
+        self.end_at = self.end_at or datetime.today() + timedelta(days=7)
+        super(Task, self).save(*args, **kwargs)
 
     @property
     def is_wip(self):

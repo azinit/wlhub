@@ -18,12 +18,12 @@
 {% endblock %}
 
 {% block content %}
-    <section class="task-details h-100">
+    <section class="task-details h-100" style="{{ task.state.style_transparent }}">
         <div class="container d-flex flex-column h-100">
             <div class="card my-5 flex-grow-1">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div class="card-header__start">
-                        <span class="badge badge-success p-2">{{ task.state }}</span>
+                        <span class="badge text-light p-2" style="{{ task.state.style }}">{{ task.state }}</span>
                     </div>
                     <div class="card-header__end">
                         <a class="btn btn-outline-dark btn-create-task py-1" title="Создать задачи" href="{% url "tasks-details--create" %}">
