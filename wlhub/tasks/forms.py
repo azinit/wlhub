@@ -13,6 +13,6 @@ class TaskForm(forms.ModelForm):
             "state",
             "report_status",
             "priority",
-            "tags",
+            # TODO: "tags",
             "end_at",
         )
