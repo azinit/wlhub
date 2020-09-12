@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 
+
 @login_required
 def index(request):
     context = {}
