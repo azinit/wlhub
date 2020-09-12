@@ -1,10 +1,10 @@
 <div class="field">
     <div class="field__header d-flex justify-content-between align-items-center">
-        <h6 class="field__label">{{ label }}</h6>
+        <h6 class="field__label">{{ label|default:"Нет данных" }}</h6>
         {% if title %}
             <i class="fas fa-question-circle fa-sm muted" title="{{ title }}"></i>
         {% endif %}
     </div>
-    <div class="field__value">{{ value }}</div>
+    <div class="field__value">{{ value|default:"Нет данных" }}</div>
     <hr class="field__separator">
 </div>

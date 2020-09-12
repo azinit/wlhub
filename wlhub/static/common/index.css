@@ -79,3 +79,7 @@ footer {
 .muted:hover {
     opacity: 1.0;
 }
+
+.white-space-preline {
+    white-space: pre-line;
+}

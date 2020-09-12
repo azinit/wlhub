@@ -54,6 +54,7 @@ class TaskState(ModelStrMixin, models.Model):
 
     name = models.CharField("Название", max_length=16)
     code = models.CharField("Кодовое обозначение", max_length=2)
+    # TODO: add color (secondary, primary, ...)
 
     def __str__(self):
         return self.name
