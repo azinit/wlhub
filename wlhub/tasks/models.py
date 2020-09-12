@@ -32,7 +32,7 @@ class TaskState(ModelStrMixin, models.Model):
 
     @property
     def style_transparent(self):
-        return f'background-color: #{self.color}67 !important'
+        return f'background-color: #{self.color}10 !important'
 
 
 class TaskPriority(models.Model):
