@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -153,3 +154,6 @@ MEDIA_URL = '/media/'
 # AUTH
 LOGIN_URL = reverse_lazy("account-sign-in")
 LOGIN_REDIRECT_URL = reverse_lazy("account-sign-in")
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
