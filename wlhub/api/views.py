@@ -8,6 +8,22 @@ from dictionaries.models import Tag
 
 # Create your views here.
 class TagsViewSet(viewsets.ModelViewSet):
+    """
+    list: 111
+    Получить список пользовательских тегов
+
+    create:
+    Создать пользовательский тег
+
+    read:
+    Получить пользовательский тег
+
+    update:
+    Обновить пользовательский тег
+
+    delete:
+    Удалить пользовательсий тег
+    """
     authentication_classes = [SessionAuthentication, BasicAuthentication, JWTAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = TagSerializer

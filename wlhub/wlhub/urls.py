@@ -18,10 +18,28 @@ from django.urls import path, include
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.admin.views.decorators import staff_member_required
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
 from core.views import error_404, error_500
 from wlhub import settings
 
+# Swagger
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Snippets API",
+        default_version='v1',
+        description="Test description",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
+
+# Routing
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('users.urls')),
@@ -41,5 +59,9 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 handler404 = "core.views.error_404"
 handler500 = "core.views.error_500"
 
-# if settings.DEBUG:
+if settings.DEBUG:
+    docs_urls = [
+        path('swagger/', schema_view.with_ui('swagger'), name='schema-swagger-ui'),
+    ]
+    urlpatterns += [path('docs/', include(docs_urls))]
 #     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
