@@ -10,6 +10,8 @@
                           style="width: 150px;height:48px;line-height: 48px">
                         {{ area.name }}
                     </span>
+                {% empty %}
+                    <span class="text-muted">Нет данных</span>
                 {% endfor %}
             </div>
         </div>

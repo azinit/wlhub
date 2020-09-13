@@ -64,7 +64,7 @@ def sign_in(request):
         if user is not None:
             login(request, user)
             return redirect('account-index')
-        errors.append("Invalid login or password")
+        errors.append("Неверный логин или пароль")
 
     context["auth_errors"] = errors
     return render(request, 'sign-in/index.html', context)
