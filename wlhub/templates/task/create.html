@@ -2,12 +2,12 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block head %}
+{% block styles %}
     <link rel="stylesheet" href="{% static "/tasks/index.css" %}">
 {% endblock %}
 
 {% block title %}
-    <title>Task №{{ task.id }}</title>
+    <title>Создание задачи</title>
 {% endblock %}
 
 {% block content %}
@@ -15,12 +15,10 @@
         <div class="container d-flex flex-column h-100">
             <div class="card my-5 flex-grow-1">
                 <div class="card-header">
-                    <h3>Создание задачи</h3>
+                    <h4>Создание задачи</h4>
                 </div>
                 <div class="card-body">
-                    {% for error in errors %}
-                        {% include "components/error.html" with error=error %}
-                    {% endfor %}
+                    {% include "components/errors.html" %}
                     <form class="task-details__form" action="{% url "tasks-details--create" %}" method="post">
                         {% csrf_token %}
                         {{ form | crispy }}

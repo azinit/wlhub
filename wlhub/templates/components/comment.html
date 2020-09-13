@@ -1,0 +1,9 @@
+<div class="comment card-body py-2">
+    <blockquote class="blockquote mb-0 bg-light rounded p-3 bg-white">
+        <a class="text-primary">
+            <span class="font-weight-normal font-light">{{ comment.user }}</span>
+            <span class="font-weight-normal font-light">, {{ comment.start_at|date:"d.m.Y H:i:s" }}</span>
+        </a>
+        <p class="font-weight-light font-light">{{ comment.content }}</p>
+    </blockquote>
+</div>

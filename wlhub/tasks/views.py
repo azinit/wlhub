@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from core.utils import get_or_none
 from tasks.forms import TaskForm
 from tasks.models import Task
+from comments.forms import CommentForm
+from comments.models import Comment
 
 
 @login_required
@@ -28,8 +30,10 @@ def task_list(request):
 def task_details(request, pk: int):
     task = get_or_none(Task, pk=pk)
     context = {
-        "task": task
+        "task": task,
+        "form_comment": CommentForm()
     }
+
     return render(request, 'task/index.html', context)
 
 
@@ -55,6 +59,8 @@ def task_create(request):
             task.author = request.user
             task.save()
             return redirect("tasks-details", pk=task.pk)
+        else:
+            context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
     return render(request, "task/create.html", context=context)
 
 
@@ -74,4 +80,6 @@ def task_edit(request, pk: int):
             next_task: Task = form.save(commit=False)
             next_task.save()
             return redirect("tasks-details", pk=task.pk)
+        else:
+            context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
     return render(request, "task/edit.html", context=context)

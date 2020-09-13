@@ -3,10 +3,28 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 
+from users.forms import UserForm
+
+
 @login_required
 def index(request):
     context = {}
     return render(request, 'users/index.html', context)
+
+
+@login_required
+def settings(request):
+    context = {}
+    context["form"] = UserForm(instance=request.user)
+    if request.POST:
+        form = UserForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            return redirect("account-index")
+        else:
+            context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
+    return render(request, 'users/settings.html', context)
 
 
 def sign_in(request):

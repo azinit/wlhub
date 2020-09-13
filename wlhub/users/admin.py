@@ -13,6 +13,7 @@ class UserAdmin(ListLinksMixin, admin.ModelAdmin):
         'email',
         'username',
         'password',
+        "thumb",
     )
 
     list_display = (

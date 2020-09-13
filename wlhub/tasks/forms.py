@@ -8,11 +8,12 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = (
             "name",
-            "subject",
             "details",
             "state",
-            "report_status",
             "priority",
+            "subject",
+            "activity",
+            "report_status",
             # TODO: "tags",
             "end_at",
         )

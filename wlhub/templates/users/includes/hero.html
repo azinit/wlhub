@@ -1,5 +1,28 @@
-<h1 class="display-4">{{ user.username }}</h1>
-<p class="lead">{{ user.email }}</p>
+{% load static %}
+
+<style>
+    .user-main-setting {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+</style>
+<div class="user-main d-flex justify-content-center">
+    <div class="media text-left">
+        <img src="{% if user.thumb %}
+            {{ user.thumb.url }}
+            {% else %}
+            {% static "avatar.png" %}
+        {% endif %}" class="mr-3" width="64px" height="64px" alt="user-thumb">
+        <div class="media-body position-relative">
+            <h5 class="mt-0">{{ user.username }}</h5>
+            <a class="user-main-setting link" href="{% url "account-settings" %}">
+                <i class="fa fa-cog"></i>
+            </a>
+            {{ user.email }}
+        </div>
+    </div>
+</div>
 <hr class="my-4">
 <div class="stats">
     {% include 'components/stat.html' with size="display-5" title="Areas" label=user.areas.count icon="folder" %}

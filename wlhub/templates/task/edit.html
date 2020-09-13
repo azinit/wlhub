@@ -2,25 +2,33 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-{% block head %}
+{% block styles %}
     <link rel="stylesheet" href="{% static "/tasks/index.css" %}">
+    <style>
+        .task-details__return-btn {
+            position: absolute;
+            top: 16px;
+            left: -48px;
+        }
+    </style>
 {% endblock %}
 
 {% block title %}
-    <title>Task №{{ task.id }}</title>
+    <title>Редактирование задачи #{{ task.pk }}</title>
 {% endblock %}
 
 {% block content %}
-    <section class="task-details task-details--edit h-100">
+    <section class="task-details task-details--edit h-100" style="{{ task.state.style_transparent }}">
         <div class="container d-flex flex-column h-100">
             <div class="card my-5 flex-grow-1">
-                <div class="card-header">
-                    <h3>Редактирование задачи</h3>
+                <a href="{% url "tasks-details" pk=task.pk %}" class="task-details__return-btn link">
+                    <i class="fa fa-chevron-left fa-2x mr-3"></i>
+                </a>
+                <div class="card-header d-flex align-items-center">
+                    <h4>Редактирование задачи</h4>
                 </div>
                 <div class="card-body">
-                    {% for error in errors %}
-                        {% include "components/error.html" with error=error %}
-                    {% endfor %}
+                    {% include "components/errors.html" %}
                     <form class="task-details__form" action="{% url "tasks-details--edit" pk=task.pk %}" method="post">
                         {% csrf_token %}
                         {{ form | crispy }}
