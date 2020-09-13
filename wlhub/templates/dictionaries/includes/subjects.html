@@ -1,0 +1,17 @@
+<section class="h-100 bg-white">
+    <div class="container d-flex flex-column h-75">
+        <div class="card my-5 flex-grow-1">
+            <div class="card-header">
+                <h4>Субъекты</h4>
+            </div>
+            <div class="card-body d-flex justify-content-center align-items-center my-5 flex-wrap">
+                {% for subject in subjects %}
+                    <span class="bg-secondary m-1 text-center text-white" title="{{ subject.description }}"
+                          style="width: 150px;height:48px;line-height: 48px">
+                        {{ subject.name }}
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

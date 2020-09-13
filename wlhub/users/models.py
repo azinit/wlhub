@@ -35,6 +35,11 @@ class SiteUser(AbstractUser):
         return Area.objects.filter(user=self)
 
     @property
+    def tags(self):
+        from dictionaries.models import Tag
+        return Tag.objects.filter(user=self)
+
+    @property
     def workload(self):
         if not len(self.tasks):
             return '0%'
