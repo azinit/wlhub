@@ -28,6 +28,7 @@ urlpatterns = [
     path('tasks/', include('tasks.urls')),
     path('comments/', include('comments.urls')),
     path('dictionaries/', include('dictionaries.urls')),
+    path('api/', include('api.urls')),
     path('', include('home.urls')),
     # FIXME: temp
     path('debug/404', staff_member_required(error_404), name="debug-404"),

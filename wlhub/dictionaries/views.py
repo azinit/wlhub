@@ -1,7 +1,6 @@
 # TODO: add mutations
 # Create your views here.
 from django.views.generic import TemplateView
-
 from core.mixins import LoginRequiredViewMixin
 
 
