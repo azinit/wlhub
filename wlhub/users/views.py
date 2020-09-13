@@ -17,12 +17,13 @@ def settings(request):
     context = {}
     context["form"] = UserForm(instance=request.user)
     if request.POST:
-        form = UserForm(request.POST, instance=request.user)
+        form = UserForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
             return redirect("account-index")
-    context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
+        else:
+            context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
     return render(request, 'users/settings.html', context)
 
 

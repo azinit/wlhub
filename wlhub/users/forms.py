@@ -9,6 +9,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = (
+            "thumb",
             "username",
             "email",
         )
