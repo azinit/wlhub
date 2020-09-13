@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 
 from core.mixins import LoginRequiredViewMixin
@@ -30,7 +30,8 @@ class TasksListView(LoginRequiredViewMixin, ListView):
 
 @login_required
 def task_details(request, pk: int):
-    task = get_or_none(Task, pk=pk)
+    task = get_object_or_404(Task, pk=pk)
+
     context = {
         "task": task,
         "form_comment": CommentForm()
