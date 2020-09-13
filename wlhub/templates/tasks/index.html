@@ -4,6 +4,14 @@
     <title>Tasks</title>
 {% endblock %}
 
+{% block styles %}
+    <style>
+        .tasks-list__toolbar-nav {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+    </style>
+{% endblock %}
 {% block content %}
     <section class="tasks-list h-100-pr">
         <div class="container d-flex flex-column h-100-pr">
@@ -26,7 +34,8 @@
                         </li>
                     </ul>
                     <div class="tasks__buttons ml-2">
-                        <a class="create-issue btn btn-outline-danger" title="Создать новую задачу" href="{% url "tasks-details--create" %}">
+                        <a class="create-issue btn btn-outline-danger" title="Создать новую задачу"
+                           href="{% url "tasks-details--create" %}">
                             <i class="fa fa-plus"></i>
                         </a>
                     </div>

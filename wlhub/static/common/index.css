@@ -98,3 +98,10 @@ footer {
 .link i:hover {
     opacity: 1.0;
 }
+
+.opacity-40 {
+    opacity: 0.4;
+}
+.opacity-50 {
+    opacity: 0.5;
+}

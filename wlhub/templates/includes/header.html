@@ -20,30 +20,29 @@
                         <a class="nav-link text-danger" href="{% url 'tasks-list' %}">Задачи</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-secondary" href="{% url 'tasks-details' pk=1 %}">[Пример задачи]</a>
+                        <a class="nav-link text-secondary" href="{% url 'dictionaries-index' %}">Справочники</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{% url 'account-settings' %}">Настройки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{% url 'account-survey' %}">Опрос</a>
                     </li>
                 {% endif %}
-                {% comment %}<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>{% endcomment %}
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Get Started</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Docs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">API</a>
-                </li>
+                {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link opacity-40" href="{% url 'admin:index' %}">[AdminPanel]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link opacity-40" href="{% url 'tasks-details' pk=1 %}">[Пример задачи]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link opacity-40" href="{% url 'debug-404' %}">[404]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link opacity-40" href="{% url 'debug-500' %}">[500]</a>
+                    </li>
+                {% endif %}
             </ul>
             {% comment %}<form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
