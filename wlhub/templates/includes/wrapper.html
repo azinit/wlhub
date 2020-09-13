@@ -11,23 +11,18 @@
     <link rel="stylesheet" href="{% static "bootstrap/bootstrap-color.min.css" %}" type="text/css">
     <link rel="stylesheet" href="{% static 'common/index.css' %}">
     <link rel="stylesheet" href="{% static 'components/task_item.css' %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     {% block styles %}
     {% endblock %}
 </head>
 <body>
 <div id="root">
     {% include 'includes/header.html' %}
-    {% if error %}
-        {% if error == 404 %}
-            {#            {% includes 'parking_pages/404.html' %}#}
-        {% endif %}
-    {% else %}
-        <main>
-            {% block content %}
-            {% endblock %}
-        </main>
-    {% endif %}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
     {% include 'includes/footer.html' %}
 </div>
 

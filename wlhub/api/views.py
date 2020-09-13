@@ -9,7 +9,7 @@ from dictionaries.models import Tag
 # Create your views here.
 class TagsViewSet(viewsets.ModelViewSet):
     """
-    list: 111
+    list:
     Получить список пользовательских тегов
 
     create:

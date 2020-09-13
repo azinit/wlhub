@@ -28,9 +28,9 @@ from wlhub import settings
 # Swagger
 schema_view = get_schema_view(
     openapi.Info(
-        title="Snippets API",
+        title="WLHub API",
         default_version='v1',
-        description="Test description",
+        description="API для работы с сервисом WLHub",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),

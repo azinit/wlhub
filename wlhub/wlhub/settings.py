@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.urls import reverse_lazy
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -149,5 +151,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # AUTH
-LOGIN_URL = '/account/sign-in'
-LOGIN_REDIRECT_URL = '/account/sign-in'
+LOGIN_URL = reverse_lazy("account-sign-in")
+LOGIN_REDIRECT_URL = reverse_lazy("account-sign-in")
