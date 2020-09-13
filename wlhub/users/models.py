@@ -40,6 +40,10 @@ class SiteUser(AbstractUser):
         return Tag.objects.filter(user=self)
 
     @property
+    def has_survey_voice(self):
+        return len(self.surveys.all()) > 0
+
+    @property
     def workload(self):
         if not len(self.tasks):
             return '0%'
@@ -47,3 +51,24 @@ class SiteUser(AbstractUser):
         percent = len(self.open_tasks) / len(self.tasks) * 100
         fixed = "%.1f" % percent
         return f'{fixed}%'
+
+
+class UserSurvey(models.Model):
+    """
+    Анкета от пользователя
+    """
+
+    class Meta:
+        verbose_name = "Анкета от пользователя"
+        verbose_name_plural = "Анкеты от пользователей"
+
+    user = models.ForeignKey(SiteUser, verbose_name="Пользователь", on_delete=models.DO_NOTHING, related_name="surveys")
+    is_student = models.BooleanField("Являюсь Студентом")
+    is_employee = models.BooleanField("Являюсь Сотрудником компании")
+    is_employer = models.BooleanField("Являюсь Учредителем компании")
+    is_manager = models.BooleanField("Являюсь Менеджером")
+    is_freelancer = models.BooleanField("Являюсь Фрилансером")
+    rate = models.IntegerField("Оценка сервиса")
+
+    def __str__(self):
+        return f'{self.user} ({self.rate}/5)'

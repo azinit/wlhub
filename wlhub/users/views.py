@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 
-from users.forms import UserForm
+from users.forms import UserForm, UserSurveyForm
 
 
 @login_required
@@ -25,6 +25,23 @@ def settings(request):
         else:
             context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
     return render(request, 'users/settings.html', context)
+
+
+@login_required
+def survey(request):
+    context = {}
+    context["form"] = UserSurveyForm()
+    if request.POST:
+        form = UserSurveyForm(request.POST)
+        if form.is_valid():
+            survey = form.save(commit=False)
+            survey.rate = int(request.POST["rating"])
+            survey.user = request.user
+            survey.save()
+            return redirect("account-index")
+        else:
+            context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
+    return render(request, 'users/survey.html', context)
 
 
 def sign_in(request):

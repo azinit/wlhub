@@ -1,0 +1,32 @@
+{% extends 'includes/wrapper.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title>Оценка сервиса</title>
+{% endblock %}
+
+{% block content %}
+    <section class="user-settings task-details--create h-100">
+        <div class="container d-flex flex-column h-100">
+            <div class="card my-5 flex-grow-1">
+                <div class="card-header">
+                    <h4>Настройки профиля</h4>
+                </div>
+                <div class="card-body">
+                    {% include "components/errors.html" %}
+                    {% if user.has_survey_voice %}
+                        <span>Спасибо за ваше мнение о сервисе!</span>
+                    {% else %}
+                        <form class="task-details__form" action="{% url "account-survey" %}" method="post"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            {% include "components/rating.html" %}
+                            <button type="submit" class="task-details__btn btn btn-dark w-100">Сохранить</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
