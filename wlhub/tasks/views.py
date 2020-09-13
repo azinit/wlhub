@@ -5,7 +5,6 @@ from core.utils import get_or_none
 from tasks.forms import TaskForm
 from tasks.models import Task
 from comments.forms import CommentForm
-from comments.models import Comment
 
 
 @login_required
