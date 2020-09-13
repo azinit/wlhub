@@ -1,28 +1,31 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.views.generic import ListView
 
+from core.mixins import LoginRequiredViewMixin
 from core.utils import get_or_none
 from tasks.forms import TaskForm
 from tasks.models import Task
 from comments.forms import CommentForm
 
 
-@login_required
-def task_list(request):
-    user = request.user
+class TasksListView(LoginRequiredViewMixin, ListView):
+    model = Task
+    template_name = "tasks/index.html"
 
-    tasks = []
-    category = request.GET.get("category", "open")
-    if category == 'open':
-        tasks = Task.open().filter(subject__area__user=user)
-    if category == 'closed':
-        tasks = Task.closed().filter(subject__area__user=user)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category"] = self.request.GET.get("category", "open")
+        return context
 
-    context = {
-        "tasks": tasks,
-        "category": category
-    }
-    return render(request, 'tasks/index.html', context)
+    def get_queryset(self):
+        user = self.request.user
+        category = self.request.GET.get("category", "open")
+        if category == 'open':
+            return Task.open().filter(subject__area__user=user)
+        if category == 'closed':
+            return Task.closed().filter(subject__area__user=user)
+        return []
 
 
 @login_required

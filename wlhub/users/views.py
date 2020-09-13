@@ -1,7 +1,10 @@
 from django.contrib.auth import logout as _logout, authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
+from django.urls import reverse_lazy
+from django.views.generic import FormView
 
 from users.forms import UserForm, UserSurveyForm
 
@@ -27,21 +30,22 @@ def settings(request):
     return render(request, 'users/settings.html', context)
 
 
-@login_required
-def survey(request):
-    context = {}
-    context["form"] = UserSurveyForm()
-    if request.POST:
-        form = UserSurveyForm(request.POST)
-        if form.is_valid():
-            survey = form.save(commit=False)
-            survey.rate = int(request.POST["rating"])
-            survey.user = request.user
-            survey.save()
-            return redirect("account-index")
-        else:
-            context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
-    return render(request, 'users/survey.html', context)
+class SurveyForm(LoginRequiredMixin, FormView):
+    template_name = "users/survey.html"
+    form_class = UserSurveyForm
+    success_url = reverse_lazy("account-index")
+
+    def form_valid(self, form):
+        survey = form.save(commit=False)
+        survey.rate = int(self.request.POST["rating"])
+        survey.user = self.request.user
+        survey.save()
+
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        form.add_error("Ошибка заполнения формы", "Проверьте введенные данные")
+        return super().form_invalid(form)
 
 
 def sign_in(request):
