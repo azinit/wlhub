@@ -1,0 +1,7 @@
+<ul class="list-group list-group-flush">
+    {% for task in object_list %}
+        {% include 'components/task_item.html' with task=task %}
+    {% empty %}
+        <span class="text-muted text-center mt-4">Looks like you have not yet any open task</span>
+    {% endfor %}
+</ul>

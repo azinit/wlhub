@@ -1,0 +1,104 @@
+{% extends 'includes/wrapper.html' %}
+{% load crispy_forms_tags %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        window.onload = () => {
+            $(".btn-delete-task").on("click", () => {
+                const msg = "Вы действительно хотите удалить задачу? Отменить действие будет нельзя!";
+                if (confirm(msg)) {
+                    location.href = "{% url "tasks-details--delete" pk=task.pk %}";
+                }
+            })
+        };
+    </script>
+{% endblock %}
+
+{% block title %}
+    <title>Задача №{{ task.id }}</title>
+{% endblock %}
+
+{% block content %}
+    <section class="task-details h-100" style="{{ task.state.style_transparent }}">
+        <div class="container d-flex flex-column h-100">
+            <div class="card my-5 flex-grow-1">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card-header__start">
+                        <span class="badge text-light p-2" style="{{ task.state.style }}">{{ task.state }}</span>
+                    </div>
+                    <div class="card-header__end">
+                        <a class="btn btn-outline-dark btn-create-task py-1" title="Создать задачи"
+                           href="{% url "tasks-details--create" %}">
+                            <i class="fa fa-plus fa-sm"></i>
+                        </a>
+                        <a class="btn btn-outline-dark py-1" title="Редактировать задачи"
+                           href="{% url "tasks-details--edit" pk=task.pk %}">
+                            <i class="far fa-edit fa-sm"></i>
+                        </a>
+                        <button class="btn btn-outline-danger btn-delete-task py-1" title="Удалить задачу">
+                            <i class="fa fa-trash fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body d-flex p-0">
+                    <div class="card-col w-75 p-4">
+                        <h4 class="card-title mb-4">{{ task.name }}</h4>
+                        <p class="card-text white-space-preline">{{ task.details }}</p>
+                    </div>
+                    <div class="card-col w-25 bg-light p-4">
+                        <div class="task-details__properties">
+                            {% include "components/field.html" with label="Область" value=task.subject title="Область и контекст задачи" %}
+                            {% include "components/field.html" with label="Состояние" value=task.state %}
+                            {% include "components/field.html" with label="Приоритет" value=task.priority %}
+                            {% include "components/field.html" with label="Активность" value=task.activity %}
+                            {% include "components/field.html" with label="Отчетность" value=task.report_status title="Тип отчетности по задаче" %}
+                            <div class="field">
+                                <div class="field__header d-flex justify-content-between align-items-center">
+                                    <h6 class="field__label">Ссылка на ресурс</h6>
+                                </div>
+                                {% if task.link %}
+                                    <a class="field__value" href="{{ task.link }}">{{ task.link }}</a>
+                                {% else %}
+                                    <span class="field__value">Нет данных</span>
+                                {% endif %}
+                                <hr class="field__separator">
+                            </div>
+                        </div>
+                        <div class="tags-list">
+                            {# FIXME: more customizable include (pass template in include) #}
+                            <div class="field">
+                                <h6 class="field__label">Метки</h6>
+                                {% for tag in task.tags.all %}
+                                    <span class="badge badge-secondary p-2">{{ tag }}</span>
+                                {% empty %}
+                                    <span class="text-muted">Нет данных</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-footer__title d-flex align-items-center">
+                        <i class="fa fa-comment-alt mr-2"></i>
+                        <h6 class="m-0">Комментарии: {{ task.comments.all|length }}</h6>
+                    </div>
+                    <div class="comments mt-4 w-75">
+                        <div class="task-details__comments-list">
+                            {% for comment in task.comments.all %}
+                                {% include "components/comment.html" with comment=comment %}
+                            {% empty %}
+                                <span>Комментарии отсутствуют</span>
+                            {% endfor %}
+                        </div>
+                        <form class="task-details__comment-form" action="{% url "comment--create" pk=task.pk %}"
+                              method="post">
+                            {% csrf_token %}
+                            {{ form_comment | crispy }}
+                            <button type="submit" class="task-details__btn btn btn-dark w-100">Отправить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

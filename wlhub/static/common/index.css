@@ -1,0 +1,107 @@
+html,
+body,
+#root {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: var(--light);
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+    margin-top: 72px;
+}
+
+footer {
+    height: 60px;
+    line-height: 60px;
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+.h-100-pr {
+    height: 100%;
+}
+
+.display-5 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.dim-1 {
+    opacity: 0.8;
+}
+
+.dim-2 {
+    opacity: 0.7;
+}
+
+.dim-3 {
+    opacity: 0.6;
+}
+
+.dim-4 {
+    opacity: 0.5;
+}
+
+.dim-5 {
+    opacity: 0.25;
+}
+
+.text-link {
+    text-decoration: none;
+    color: unset;
+}
+
+.text-link:hover {
+    color: unset;
+    text-decoration: none;
+}
+
+.flex-grow-2 {
+    flex-grow: 2 !important;
+}
+
+.flex-grow-3 {
+    flex-grow: 3 !important;
+}
+
+.muted {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.muted:hover {
+    opacity: 1.0;
+}
+
+.white-space-preline {
+    white-space: pre-line;
+}
+
+.link i {
+    opacity: 0.5;
+    color: var(--secondary);
+}
+
+.link i:hover {
+    opacity: 1.0;
+}
+
+.opacity-40 {
+    opacity: 0.4;
+}
+.opacity-50 {
+    opacity: 0.5;
+}

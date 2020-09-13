@@ -1,0 +1,26 @@
+{% extends 'includes/wrapper.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title>Настройки профиля</title>
+{% endblock %}
+
+{% block content %}
+    <section class="user-settings task-details--create h-100">
+        <div class="container d-flex flex-column h-100">
+            <div class="card my-5 flex-grow-1">
+                <div class="card-header">
+                    <h4>Настройки профиля</h4>
+                </div>
+                <div class="card-body">
+                    {% include "components/errors.html" %}
+                    <form class="task-details__form" action="{% url "account-settings" %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        <button type="submit" class="task-details__btn btn btn-dark w-100">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,4 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse as reverse
+from django.utils.decorators import classonlymethod
 from django.utils.html import format_html
 
 
@@ -41,3 +43,13 @@ class ListLinksMixin(object):
         _func.admin_order_field = field
 
         return _func
+
+
+class LoginRequiredViewMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    @classonlymethod
+    def as_view(cls, **initkwargs):
+        view = super().as_view(**initkwargs)
+        return login_required(view)

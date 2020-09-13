@@ -1,0 +1,50 @@
+{% extends 'includes/wrapper.html' %}
+
+{% block title %}
+    <title>Tasks</title>
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .tasks-list__toolbar-nav {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <section class="tasks-list h-100-pr">
+        <div class="container d-flex flex-column h-100-pr">
+            <div class="card p-4 mt-4 flex-grow-1">
+                <div class="tasks__header mb-0 text-center">
+                    <h1 class="mb-0">Tasks</h1>
+                </div>
+                <hr/>
+                <div class="tasks__toolbar d-flex align-items-center">
+                    <ul class="nav nav-tabs mb-2 flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary {% if category == "open" %}active text-danger{% endif %}"
+                               href="{% url 'tasks-list' %}?category=open">
+                                Открытые
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary {% if category == "closed" %}active text-danger{% endif %}"
+                               href="{% url 'tasks-list' %}?category=closed">Закрытые</a>
+                        </li>
+                    </ul>
+                    <div class="tasks__buttons ml-2">
+                        <a class="create-issue btn btn-outline-danger" title="Создать новую задачу"
+                           href="{% url "tasks-details--create" %}">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+                {% include 'tasks/includes/toolbar.html' %}
+                <div class="mt-1">
+                    {% include 'tasks/includes/tasks.html' %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

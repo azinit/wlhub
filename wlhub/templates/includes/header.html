@@ -1,0 +1,61 @@
+{% load static %}
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger black-bg fixed-top">
+        <nav class="navbar navbar-dark">
+            <a class="navbar-brand" href="{% url 'home-index' %}">
+                <img src="{% static 'favicon.png' %}" width="30" height="30"
+                     class="d-inline-block align-top" alt="">
+            </a>
+        </nav>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{% url 'tasks-list' %}">Задачи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{% url 'dictionaries-index' %}">Справочники</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{% url 'account-settings' %}">Настройки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{% url 'account-survey' %}">Опрос</a>
+                    </li>
+                {% endif %}
+                {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link opacity-40" href="{% url 'admin:index' %}">[AdminPanel]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link opacity-40" href="{% url 'tasks-details' pk=1 %}">[Пример задачи]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link opacity-40" href="{% url 'debug-404' %}">[404]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link opacity-40" href="{% url 'debug-500' %}">[500]</a>
+                    </li>
+                {% endif %}
+            </ul>
+            {% comment %}<form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>{% endcomment %}
+            {% if user.is_authenticated %}
+                <a href="{% url 'account-index' %}" class="text-muted mr-2">({{ user.username }})</a>
+                <a href="{% url 'account-logout' %}" class="btn btn-dark m-1 text-white" type="submit">Выйти</a>
+            {% else %}
+                <a href="{% url 'account-sign-in' %}" class="btn btn-dark m-1 text-white" type="submit">Войти</a>
+                <a href="{% url 'account-sign-up' %}" class="btn btn-danger m-1 text-white" type="submit">Зарегистрироваться</a>
+            {% endif %}
+
+        </div>
+    </nav>
+</header>

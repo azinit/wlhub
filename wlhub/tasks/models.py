@@ -1,39 +1,11 @@
-from django.contrib.auth import get_user_model
+from datetime import datetime, timedelta
+
 from django.db import models
+from django.db.models import QuerySet
 
 from core.mixins import ModelStrMixin
-from users.models import Tag
-
-
-class Area(ModelStrMixin, models.Model):
-    """
-    Область задач
-    :remark В частных случаях - Заказчик, Проект, Компания и т.д.
-    :example ИТИС
-    """
-
-    class Meta:
-        verbose_name = "Область задач"
-        verbose_name_plural = "Области задач"
-
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    name = models.CharField("Название", max_length=32)
-    description = models.TextField("Описание", blank=True, default="")
-
-
-class Subject(ModelStrMixin, models.Model):
-    """
-    Субъект задачи
-    :example Django (ИТИС)
-    """
-
-    class Meta:
-        verbose_name = "Субъект задач"
-        verbose_name_plural = "Субъекты задач"
-
-    area = models.ForeignKey(Area, on_delete=models.CASCADE)
-    name = models.CharField("Название", max_length=32)
-    description = models.TextField("Описание", blank=True, default="")
+from dictionaries.models import Subject, Tag
+from reports.models import ReportStatus
 
 
 class TaskState(ModelStrMixin, models.Model):
@@ -46,10 +18,23 @@ class TaskState(ModelStrMixin, models.Model):
         verbose_name = "Состояние задачи"
         verbose_name_plural = "Состояния задачи"
 
-    name = models.CharField("Название", max_length=16)
+    name = models.CharField("Название", max_length=20)
+    code = models.CharField("Кодовое обозначение", max_length=2)
+    color = models.CharField("Цвет", max_length=6)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def style(self):
+        return f'background-color: #{self.color}'
+
+    @property
+    def style_transparent(self):
+        return f'background-color: #{self.color}10 !important'
 
 
-class TaskPriority(ModelStrMixin, models.Model):
+class TaskPriority(models.Model):
     """
     Приоритет задачи
     :example "Важно (5)"
@@ -59,28 +44,27 @@ class TaskPriority(ModelStrMixin, models.Model):
         verbose_name = "Приоритет задач"
         verbose_name_plural = "Приоритеты задач"
 
-    name = models.CharField("Название", max_length=16)
+    name = models.CharField("Название", max_length=20)
     value = models.IntegerField("Целочисленное значение приоритета")
 
+    def __str__(self):
+        return f'({self.value}) {self.name}'
 
-class ReportStatus(ModelStrMixin, models.Model):
+
+class TaskActivity(ModelStrMixin, models.Model):
     """
-    Статус отчетности
-    :example По готовности
-    По сроку
-    В конце месяца
-    Еженедельно
-    ...
+    Активность по задаче
+    :example Разработка (DEV)
     """
 
     class Meta:
-        verbose_name = "Статус отчетности"
-        verbose_name_plural = "Статусы отчетности"
+        verbose_name = "Тип активности по задаче"
+        verbose_name_plural = "Типы активностей по задачам"
 
-    name = models.CharField("Название", max_length=16)
+    name = models.CharField("Название", max_length=24)
 
 
-class Task(ModelStrMixin, models.Model):
+class Task(models.Model):
     """
     Задача
     :example Семестровка (ИТИС/Django)
@@ -91,9 +75,40 @@ class Task(ModelStrMixin, models.Model):
         verbose_name_plural = "Задачи"
 
     name = models.CharField("Название", max_length=32)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, verbose_name="Субъект задачи", on_delete=models.CASCADE)
     details = models.TextField("Детали задачи", default="")
-    state = models.ForeignKey(TaskState, on_delete=models.SET_NULL, null=True)
-    report_status = models.ForeignKey(ReportStatus, on_delete=models.SET_NULL, null=True)
-    priority = models.ForeignKey(TaskPriority, on_delete=models.SET_NULL, null=True)
+    activity = models.ForeignKey(TaskActivity, verbose_name="Активность", on_delete=models.DO_NOTHING, default=1)
+    link = models.URLField("Ссылка на основной ресурс к задаче", blank=True, null=True)
+    state = models.ForeignKey(TaskState, verbose_name="Состояние", on_delete=models.SET_NULL, blank=True, null=True,
+                              default=1)
+    report_status = models.ForeignKey(ReportStatus, verbose_name="Статус отчетности", on_delete=models.SET_NULL,
+                                      null=True, default=1)
+    priority = models.ForeignKey(TaskPriority, verbose_name="Приоритет", on_delete=models.SET_NULL, null=True, default=4)
     tags = models.ManyToManyField(Tag)
+    start_at = models.DateField("Дата создания", blank=True)
+    updated_at = models.DateTimeField("Дата обновления", auto_now=True)
+    end_at = models.DateField("Дата завершения", blank=True)
+
+    def __str__(self):
+        return f'#{self.pk}: {self.name}'
+
+    def save(self, *args, **kwargs):
+        self.start_at = self.start_at or datetime.today()
+        self.end_at = self.end_at or datetime.today() + timedelta(days=7)
+        super(Task, self).save(*args, **kwargs)
+
+    @property
+    def is_wip(self):
+        return self.state.code == "WI"
+
+    @property
+    def label(self):
+        return f'{"WIP: " if self.is_wip else ""}{self.name}'
+
+    @classmethod
+    def open(cls) -> QuerySet:
+        return Task.objects.filter(state__code__in=["IN", "WI", "NW"])
+
+    @classmethod
+    def closed(cls) -> QuerySet:
+        return Task.objects.filter(state__code__in=["FL", "DN"])

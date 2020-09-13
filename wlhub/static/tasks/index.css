@@ -1,0 +1,16 @@
+.task-details__form {
+    display: flex !important;
+    flex-wrap: wrap;
+}
+
+.task-details__form > * {
+    flex: 1 0 40% !important;
+    margin-right: 20px;
+}
+
+.task-details__form #div_id_name,
+.task-details__form #div_id_details,
+.task-details__btn {
+    flex-basis: 100% !important;
+    margin-right: unset;
+}

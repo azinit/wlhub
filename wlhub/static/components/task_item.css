@@ -1,0 +1,36 @@
+/* COMMON */
+.task-item {
+    opacity: 0.5;
+    transition: .2s;
+}
+.task-item:hover {
+    cursor: pointer;
+    opacity: 1.0!important;
+}
+/* WIP */
+.task-item.wi {
+    opacity: 1.0;
+}
+.task-item.wi:hover {
+    color: var(--blue)
+}
+/* DONE */
+.task-item.dn {
+    opacity: 0.4;
+    color: var(--teal);
+}
+.task-item.dn > * {
+    color: var(--teal)!important;
+}
+/* NEW */
+.task-item.nw {
+    background-color: #F3FFF2;
+}
+/* FAILED */
+.task-item.fl {
+    opacity: 0.4;
+    color: var(--danger);
+}
+.task-item.fl > * {
+    color: var(--danger)!important;
+}
