@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.urls import reverse_lazy
@@ -153,3 +154,6 @@ MEDIA_URL = '/media/'
 # AUTH
 LOGIN_URL = reverse_lazy("account-sign-in")
 LOGIN_REDIRECT_URL = reverse_lazy("account-sign-in")
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
