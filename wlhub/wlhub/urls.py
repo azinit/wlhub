@@ -30,8 +30,8 @@ urlpatterns = [
     path('dictionaries/', include('dictionaries.urls')),
     path('', include('home.urls')),
     # FIXME: temp
-    path('debug/404', staff_member_required(error_404)),
-    path('debug/500', staff_member_required(error_500)),
+    path('debug/404', staff_member_required(error_404), name="debug-404"),
+    path('debug/500', staff_member_required(error_500), name="debug-500"),
 ]
 urlpatterns += staticfiles_urlpatterns()
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
