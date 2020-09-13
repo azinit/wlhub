@@ -4,6 +4,7 @@ from django.db import models
 
 class SiteUser(AbstractUser):
     email = models.EmailField('Email', unique=True)
+    thumb = models.ImageField("Аватар пользователя", blank=True, null=True, upload_to="gallery")
 
     # USERNAME_FIELD = 'email'
     # REQUIRED_FIELDS = ['username']
@@ -35,4 +36,9 @@ class SiteUser(AbstractUser):
 
     @property
     def workload(self):
-        return f'{len(self.open_tasks) / len(self.tasks) * 100}%'
+        if not len(self.tasks):
+            return '0%'
+
+        percent = len(self.open_tasks) / len(self.tasks) * 100
+        fixed = "%.1f" % percent
+        return f'{fixed}%'

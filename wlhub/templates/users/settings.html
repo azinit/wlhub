@@ -1,0 +1,31 @@
+{% extends 'includes/wrapper.html' %}
+{% load crispy_forms_tags %}
+
+{% block styles %}
+    <style>
+        .stat {
+            color: var(--gray);
+            transition: .2s;
+            user-select: none;
+        }
+
+        .stat:hover {
+            color: var(--danger);
+            cursor: default;
+        }
+    </style>
+{% endblock %}
+{% block title %}
+    <title>Profile</title>
+{% endblock %}
+
+{% block content %}
+    <section class="user-settings">
+        {% include "components/errors.html" %}
+        <form class="task-details__form" action="{% url "account-settings" %}" method="post">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit" class="task-details__btn btn btn-dark w-100">Сохранить</button>
+        </form>
+    </section>
+{% endblock %}
