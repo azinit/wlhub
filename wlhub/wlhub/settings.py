@@ -24,7 +24,7 @@ SECRET_KEY = 'zl5lb8)7+w7y-14640h5mvx&5m4_)3z19(gtil%mkvm1tabim3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', "wlhub.heroku.com"]
 
 # Application definition
 AUTH_USER_MODEL = 'users.SiteUser'
@@ -125,6 +125,8 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
+# # FIXME: temp
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # CRISPY CONFIG
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

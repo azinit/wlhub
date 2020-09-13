@@ -1,0 +1,44 @@
+{% extends "includes/wrapper.html" %}
+
+{% block styles %}
+    <style>
+        .error-main {
+            padding: 100px;
+        }
+
+        .error-main h1 {
+            font-weight: bold;
+            color: #444444;
+            font-size: 100px;
+        }
+
+        .error-main h6 {
+            color: #42494f;
+        }
+
+        .error-main p {
+            color: #9897a0;
+            font-size: 14px;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="err404 d-flex align-items-center flex-grow-1 d-flex h-100">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-6 offset-lg-3 col-sm-6 offset-sm-3 col-12 error-main shadow bg-white">
+                    <div class="row">
+                        <div class="col-lg-8 col-12 col-sm-10 offset-lg-2 offset-sm-1">
+                            <h1 class="m-0">{{ status_code }}</h1>
+                            <h6>{{ message }}</h6>
+                            {% if details %}
+                                <span class="text-secondary">{{ details }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

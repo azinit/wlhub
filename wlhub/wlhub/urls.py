@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.admin.views.decorators import staff_member_required
 
+from core.views import error_404, error_500
 from wlhub import settings
 
 urlpatterns = [
@@ -27,9 +29,16 @@ urlpatterns = [
     path('comments/', include('comments.urls')),
     path('dictionaries/', include('dictionaries.urls')),
     path('', include('home.urls')),
+    # FIXME: temp
+    path('debug/404', staff_member_required(error_404)),
+    path('debug/500', staff_member_required(error_500)),
 ]
 urlpatterns += staticfiles_urlpatterns()
-# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+handler404 = "core.views.error_404"
+handler500 = "core.views.error_500"
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
