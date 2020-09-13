@@ -36,3 +36,11 @@ class UserSurveyAdmin(admin.ModelAdmin):
         "is_manager",
         "is_freelancer",
     )
+
+    list_filter = (
+        "is_student",
+        "is_employee",
+        "is_employer",
+        "is_manager",
+        "is_freelancer",
+    )
