@@ -83,7 +83,7 @@ class Task(models.Model):
                               default=1)
     report_status = models.ForeignKey(ReportStatus, verbose_name="Статус отчетности", on_delete=models.SET_NULL,
                                       null=True, default=1)
-    priority = models.ForeignKey(TaskPriority, verbose_name="Приоритет", on_delete=models.SET_NULL, null=True, default=4)
+    priority = models.ForeignKey(TaskPriority, verbose_name="Приоритет", on_delete=models.SET_NULL, null=True, default=3)
     tags = models.ManyToManyField(Tag)
     start_at = models.DateField("Дата создания", blank=True)
     updated_at = models.DateTimeField("Дата обновления", auto_now=True)
