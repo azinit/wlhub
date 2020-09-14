@@ -7,6 +7,7 @@ from core.utils import get_or_none
 from tasks.forms import TaskForm
 from tasks.models import Task
 from comments.forms import CommentForm
+from tasks.utils import validate_task_access
 
 
 class TasksListView(LoginRequiredViewMixin, ListView):
@@ -36,7 +37,7 @@ def task_details(request, pk: int):
         "task": task,
         "form_comment": CommentForm()
     }
-
+    validate_task_access(request.user, task)
     return render(request, 'task/index.html', context)
 
 
@@ -45,7 +46,7 @@ def task_delete(request, pk: int):
     task: Task = get_or_none(Task, pk=pk)
     if not task:
         return redirect("tasks-details", pk=pk)
-
+    validate_task_access(request.user, task)
     task.delete()
     return redirect("tasks-list")
 
@@ -72,6 +73,7 @@ def task_edit(request, pk: int):
     task: Task = get_or_none(Task, pk=pk)
     if not task:
         return redirect("tasks-details", pk=pk)
+    validate_task_access(request.user, task)
 
     context = {}
     context["form"] = TaskForm(instance=task)
