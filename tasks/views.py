@@ -7,6 +7,7 @@ from core.utils import get_or_none
 from tasks.forms import TaskForm
 from tasks.models import Task
 from comments.forms import CommentForm
+from dictionaries.models import Subject
 from tasks.utils import validate_task_access
 
 
@@ -54,7 +55,10 @@ def task_delete(request, pk: int):
 @login_required
 def task_create(request):
     context = {}
-    context["form"] = TaskForm()
+    form = TaskForm()
+    form.fields["subject"].queryset = Subject.objects.filter(area__user=request.user).all()
+
+    context["form"] = form
 
     if request.POST:
         form = TaskForm(request.POST)
@@ -76,7 +80,10 @@ def task_edit(request, pk: int):
     validate_task_access(request.user, task)
 
     context = {}
-    context["form"] = TaskForm(instance=task)
+    form = TaskForm(instance=task)
+    form.fields["subject"].queryset = Subject.objects.filter(area__user=request.user).all()
+
+    context["form"] = form
     context["task"] = task
 
     if request.POST:
