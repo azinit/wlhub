@@ -22,7 +22,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-from core.views import debug_404, debug_500
+from core.views import debug_403, debug_404, debug_500
 from wlhub import settings
 
 # Swagger
@@ -40,6 +40,7 @@ schema_view = get_schema_view(
 )
 
 # errors handling
+handler403 = "core.views.error_403"
 handler404 = "core.views.error_404"
 handler500 = "core.views.error_500"
 
@@ -52,6 +53,7 @@ urlpatterns = [
     path('dictionaries/', include('dictionaries.urls')),
     path('api/', include('api.urls')),
     path('', include('home.urls')),
+    path('debug/403', debug_403, name="debug-403"),
     path('debug/404', debug_404, name="debug-404"),
     path('debug/500', debug_500, name="debug-500"),
     # For media handling with DEBUG=True and DEBUG=False
