@@ -1,3 +1,3 @@
 window.onload = () => {
-    console.log("[WLHUB] App initialized (v.15)");
+    console.log("[WLHUB] App initialized");
 };
