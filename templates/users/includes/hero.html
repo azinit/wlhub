@@ -30,4 +30,5 @@
     {% include 'components/stat.html' with size="display-5" title="Total tasks" label=user.tasks.count icon="clone" %}
     {% include 'components/stat.html' with size="display-5" title="Closed tasks" label=user.closed_tasks.count icon="check" %}
     {% include 'components/stat.html' with size="display-5" title="Workload" label=user.workload icon="fire" %}
+    {% include 'components/stat.html' with size="display-5" title="Overload" label=user.overload icon="adjust" %}
 </div>
