@@ -75,7 +75,7 @@ class Task(models.Model):
         verbose_name_plural = "Задачи"
 
     name = models.CharField("Название", max_length=32)
-    subject = models.ForeignKey(Subject, verbose_name="Субъект задачи", on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, verbose_name="Субъект задачи", on_delete=models.CASCADE, related_name="tasks")
     details = models.TextField("Детали задачи", default="")
     activity = models.ForeignKey(TaskActivity, verbose_name="Активность", on_delete=models.DO_NOTHING, default=1)
     link = models.URLField("Ссылка на основной ресурс к задаче", blank=True, null=True)

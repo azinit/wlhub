@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import Sum, Q
 
 
 class SiteUser(AbstractUser):
@@ -51,6 +52,24 @@ class SiteUser(AbstractUser):
         percent = len(self.open_tasks) / len(self.tasks) * 100
         fixed = "%.1f" % percent
         return f'{fixed}%'
+
+    @property
+    def overload(self):
+        if not len(self.tasks):
+            return "0"
+        # val = Subject.objects.all().first().task_set
+        # Sum all priorities of sub-tasks by subjects iterating (only new or wip tasks)
+
+        try:
+            result = self.subjects \
+                .filter(Q(tasks__state__code="WI") | Q(tasks__state__code="NW")) \
+                .annotate(sum_priority=Sum("tasks__priority__value")) \
+                .aggregate(Sum("sum_priority"))
+            value = result["sum_priority__sum"]
+            return value
+        except Exception as err:
+            print(err)
+            return "-"
 
 
 class UserSurvey(models.Model):
