@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'zl5lb8)7+w7y-14640h5mvx&5m4_)3z19(gtil%mkvm1tabim3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', "wlhub.heroku.com"]
 
@@ -50,6 +50,12 @@ INSTALLED_APPS = [
     'reports',
     'home',
 ]
+
+MIDDLEWARE_CLASSES = (
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,12 +144,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
 ]
 
-STATIC_URL = '/static/'
-# # FIXME: temp
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/staticfiles/'
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # CRISPY CONFIG
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
