@@ -1,6 +1,6 @@
 <li class="task-item list-group-item {{ task.state.code|lower }}">
     <div class="task-main" style="font-weight: 500">
-        <a class="task-name text-link" href="{% url 'tasks-details' pk=task.pk %}">{{ task.label }}</a>
+        <a class="task-name text-link" href="{% url 'tasks:view' pk=task.pk %}">{{ task.label }}</a>
     </div>
     <div class="task-details dim-3 text-muted" style="font-size: 12px">
         <span class="task-subject mr-2">

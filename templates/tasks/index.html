@@ -24,18 +24,18 @@
                     <ul class="nav nav-tabs mb-2 flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-secondary {% if category == "open" %}active text-danger{% endif %}"
-                               href="{% url 'tasks-list' %}?category=open">
+                               href="{% url 'tasks:list' %}?category=open">
                                 Открытые
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-secondary {% if category == "closed" %}active text-danger{% endif %}"
-                               href="{% url 'tasks-list' %}?category=closed">Закрытые</a>
+                               href="{% url 'tasks:list' %}?category=closed">Закрытые</a>
                         </li>
                     </ul>
                     <div class="tasks__buttons ml-2">
                         <a class="create-issue btn btn-outline-danger" title="Создать новую задачу"
-                           href="{% url "tasks-details--create" %}">
+                           href="{% url "tasks:create" %}">
                             <i class="fa fa-plus"></i>
                         </a>
                     </div>

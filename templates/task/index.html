@@ -7,7 +7,7 @@
             $(".btn-delete-task").on("click", () => {
                 const msg = "Вы действительно хотите удалить задачу? Отменить действие будет нельзя!";
                 if (confirm(msg)) {
-                    location.href = "{% url "tasks-details--delete" pk=task.pk %}";
+                    location.href = "{% url "tasks:delete" pk=task.pk %}";
                 }
             })
         };
@@ -28,11 +28,11 @@
                     </div>
                     <div class="card-header__end">
                         <a class="btn btn-outline-dark btn-create-task py-1" title="Создать задачи"
-                           href="{% url "tasks-details--create" %}">
+                           href="{% url "tasks:create" %}">
                             <i class="fa fa-plus fa-sm"></i>
                         </a>
                         <a class="btn btn-outline-dark py-1" title="Редактировать задачи"
-                           href="{% url "tasks-details--edit" pk=task.pk %}">
+                           href="{% url "tasks:edit" pk=task.pk %}">
                             <i class="far fa-edit fa-sm"></i>
                         </a>
                         <button class="btn btn-outline-danger btn-delete-task py-1" title="Удалить задачу">

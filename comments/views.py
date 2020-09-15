@@ -10,7 +10,7 @@ from .forms import CommentForm
 def comments_create(request, pk: int):
     task = get_or_none(Task, pk=pk)
     if task is None:
-        return redirect("tasks-list")
+        return redirect("tasks:list")
 
     if request.POST:
         form = CommentForm(request.POST)
@@ -19,4 +19,4 @@ def comments_create(request, pk: int):
             comment.task = task
             comment.user = request.user
             comment.save()
-    return redirect("tasks-details", pk=task.pk)
+    return redirect("tasks:view", pk=task.pk)
