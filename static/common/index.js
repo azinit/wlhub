@@ -4,5 +4,6 @@ window.onload = () => {
     // [v.19] 14.09.2020, 23:12
     // [v.20] 15.09.2020, 00:32
     // [v.22] 15.09.2020, 10:52
-    console.log("[WLHUB] App initialized (v.16)");
+    // [v.24] 15.09.2020, 13:19 (namespaces + minor fixes)
+    console.log("[WLHUB] App initialized");
 };
