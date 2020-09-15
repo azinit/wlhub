@@ -55,7 +55,7 @@ def sign_in(request):
     context.update(csrf(request))
 
     if user.is_authenticated:
-        return redirect("home-index")
+        return redirect("home:index")
 
     if request.POST:
         username = request.POST['username']
@@ -77,7 +77,7 @@ def sign_up(request):
     errors = []
 
     if user.is_authenticated:
-        return redirect("home-index")
+        return redirect("home:index")
 
     if request.POST:
         email = request.POST['email']
@@ -113,4 +113,4 @@ def sign_up(request):
 
 def logout(request):
     _logout(request)
-    return redirect('home-index')
+    return redirect('home:index')

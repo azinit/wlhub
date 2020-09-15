@@ -6,7 +6,7 @@
         <ul class="list-group list-group-flush">
             {% for task in user.open_tasks %}
                 <li class="list-group-item">
-                    <a href="{% url "tasks:view" pk=task.pk %}" style="color: var(--secondary);">{{ task.label }}</a>
+                    <a href="{% url "tasks:details" pk=task.pk %}" style="color: var(--secondary);">{{ task.label }}</a>
                 </li>
             {% empty %}
                 <span class="p-4 text-muted">Looks like you have not yet any task</span>

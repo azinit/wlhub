@@ -46,7 +46,7 @@ def task_details(request, pk: int):
 def task_delete(request, pk: int):
     task: Task = get_or_none(Task, pk=pk)
     if not task:
-        return redirect("tasks:view", pk=pk)
+        return redirect("tasks:details", pk=pk)
     validate_task_access(request.user, task)
     task.delete()
     return redirect("tasks:list")
@@ -66,7 +66,7 @@ def task_create(request):
             task: Task = form.save(commit=False)
             task.author = request.user
             task.save()
-            return redirect("tasks:view", pk=task.pk)
+            return redirect("tasks:details", pk=task.pk)
         else:
             context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
     return render(request, "task/create.html", context=context)
@@ -76,7 +76,7 @@ def task_create(request):
 def task_edit(request, pk: int):
     task: Task = get_or_none(Task, pk=pk)
     if not task:
-        return redirect("tasks:view", pk=pk)
+        return redirect("tasks:details", pk=pk)
     validate_task_access(request.user, task)
 
     context = {}
@@ -91,7 +91,7 @@ def task_edit(request, pk: int):
         if form.is_valid():
             next_task: Task = form.save(commit=False)
             next_task.save()
-            return redirect("tasks:view", pk=task.pk)
+            return redirect("tasks:details", pk=task.pk)
         else:
             context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
     return render(request, "task/edit.html", context=context)

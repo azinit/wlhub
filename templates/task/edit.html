@@ -21,7 +21,7 @@
     <section class="task-details task-details--edit h-100" style="{{ task.state.style_transparent }}">
         <div class="container d-flex flex-column h-100">
             <div class="card my-5 flex-grow-1">
-                <a href="{% url "tasks:view" pk=task.pk %}" class="task-details__return-btn link">
+                <a href="{% url "tasks:details" pk=task.pk %}" class="task-details__return-btn link">
                     <i class="fa fa-chevron-left fa-2x mr-3"></i>
                 </a>
                 <div class="card-header d-flex align-items-center">

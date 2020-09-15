@@ -19,4 +19,4 @@ def comments_create(request, pk: int):
             comment.task = task
             comment.user = request.user
             comment.save()
-    return redirect("tasks:view", pk=task.pk)
+    return redirect("tasks:details", pk=task.pk)
