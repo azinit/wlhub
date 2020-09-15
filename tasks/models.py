@@ -80,7 +80,7 @@ class Task(models.Model):
     activity = models.ForeignKey(TaskActivity, verbose_name="Активность", on_delete=models.DO_NOTHING, default=1)
     link = models.URLField("Ссылка на основной ресурс к задаче", blank=True, null=True)
     state = models.ForeignKey(TaskState, verbose_name="Состояние", on_delete=models.SET_NULL, blank=True, null=True,
-                              default=1)
+                              default=4)
     report_status = models.ForeignKey(ReportStatus, verbose_name="Статус отчетности", on_delete=models.SET_NULL,
                                       null=True, default=1)
     priority = models.ForeignKey(TaskPriority, verbose_name="Приоритет", on_delete=models.SET_NULL, null=True,

@@ -62,7 +62,7 @@ class SiteUser(AbstractUser):
 
         try:
             result = self.subjects \
-                .filter(Q(tasks__state__code="WI") | Q(tasks__state__code="NW")) \
+                .filter(Q(tasks__state__code__icontains="WI") | Q(tasks__state__code__icontains="NW")) \
                 .annotate(sum_priority=Sum("tasks__priority__value")) \
                 .aggregate(Sum("sum_priority"))
             value = result["sum_priority__sum"]
