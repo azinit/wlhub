@@ -90,7 +90,7 @@
                                 <span>Комментарии отсутствуют</span>
                             {% endfor %}
                         </div>
-                        <form class="task-details__comment-form" action="{% url "comment--create" pk=task.pk %}"
+                        <form class="task-details__comment-form" action="{% url "comments:create" pk=task.pk %}"
                               method="post">
                             {% csrf_token %}
                             {{ form_comment | crispy }}

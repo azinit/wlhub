@@ -162,8 +162,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # AUTH
-LOGIN_URL = reverse_lazy("account-sign-in")
-LOGIN_REDIRECT_URL = reverse_lazy("account-sign-in")
+LOGIN_URL = reverse_lazy("account:sign-in")
+LOGIN_REDIRECT_URL = reverse_lazy("account:sign-in")
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

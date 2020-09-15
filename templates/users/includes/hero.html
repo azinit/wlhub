@@ -16,7 +16,7 @@
         {% endif %}" class="mr-3" width="64px" height="64px" alt="user-thumb">
         <div class="media-body position-relative">
             <h5 class="mt-0">{{ user.username }}</h5>
-            <a class="user-main-setting link" href="{% url "account-settings" %}">
+            <a class="user-main-setting link" href="{% url "account:settings" %}">
                 <i class="fa fa-cog"></i>
             </a>
             {{ user.email }}

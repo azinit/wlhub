@@ -17,7 +17,7 @@
                     {% if user.has_survey_voice %}
                         <span>Спасибо за ваше мнение о сервисе!</span>
                     {% else %}
-                        <form class="task-details__form" action="{% url "account-survey" %}" method="post"
+                        <form class="task-details__form" action="{% url "account:survey" %}" method="post"
                               enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form | crispy }}

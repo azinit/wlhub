@@ -24,7 +24,7 @@ def settings(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            return redirect("account-index")
+            return redirect("account:index")
         else:
             context["errors"] = ["Неверно заполнена форма. Проверьте введенные данные."]
     return render(request, 'users/settings.html', context)
@@ -33,7 +33,7 @@ def settings(request):
 class SurveyForm(LoginRequiredMixin, FormView):
     template_name = "users/survey.html"
     form_class = UserSurveyForm
-    success_url = reverse_lazy("account-index")
+    success_url = reverse_lazy("account:index")
 
     def form_valid(self, form):
         survey = form.save(commit=False)
@@ -63,7 +63,7 @@ def sign_in(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('account-index')
+            return redirect('account:index')
         errors.append("Неверный логин или пароль")
 
     context["auth_errors"] = errors
@@ -99,7 +99,7 @@ def sign_up(request):
             # hashing
             user.set_password(password)
             user.save()
-            return redirect("account-sign-in")
+            return redirect("account:sign-in")
 
         # process errors
         if email_exists:
